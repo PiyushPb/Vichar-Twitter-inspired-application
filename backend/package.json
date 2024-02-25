@@ -1,0 +1,23 @@
+{
+  "name": "vichar-backend",
+  "version": "1.0.0",
+  "description": "Vichar is a twitter inspired application made by final year students \"Piyush, Namrata, Dhanika & Mansi\" of college MGM College of engineering and technology kamothe.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piyushPb/vichar.git"
+  },
+  "keywords": [
+    "Social-media",
+    "Machine-Learning"
+  ],
+  "author": "Piyush & Namrata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piyushPb/vichar/issues"
+  },
+  "homepage": "https://github.com/piyushPb/vichar#readme"
+}
