@@ -15,8 +15,8 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  email: { type: String, unique: true },
-  phone: { type: String, unique: true },
+  email: { type: String, unique: true, sparse: true },
+  phone: { type: String, unique: true, sparse: true },
   bio: { type: String },
   profilePic: { type: String },
   gender: { type: String },
@@ -25,6 +25,11 @@ const UserSchema = new mongoose.Schema({
   isVerified: { type: Boolean, default: false },
   isReported: { type: Boolean, default: false },
   isBanned: { type: Boolean, default: false },
+  tokens: [
+    {
+      opt : {type: Number}
+    }
+  ]
 });
 
 export default mongoose.model("User", UserSchema);
