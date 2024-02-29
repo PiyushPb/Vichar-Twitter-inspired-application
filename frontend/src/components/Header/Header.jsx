@@ -7,6 +7,8 @@ import SearchIcon from "../../assets/HeaderIcons/Search.svg";
 import NotificationIcon from "../../assets/HeaderIcons/Notification.svg";
 import BookmarkIcon from "../../assets/HeaderIcons/Bookmark.svg";
 import PremiumIcon from "../../assets/HeaderIcons/Premium.svg";
+import AddVichar from "../../assets/HeaderIcons/AddVichar.svg";
+import SettingIcon from "../../assets/HeaderIcons/Settings.svg";
 import { BsThreeDots } from "react-icons/bs";
 
 const iconComponents = {
@@ -21,52 +23,77 @@ const Header = () => {
   const headerData = HeaderData;
 
   return (
-    <header className="p-6 max-w-[350px] h-screen border-r-2 border-solid border-gray-300 flex flex-col justify-between">
-      <div>
+    <header className="z-10 w-fit h-fit bg-bgLight dark:bg-bgDark">
+      {/* // Computer header */}
+      <div className="p-6 xl:max-w-[350px] xl:min-w-[350px] w-fit hidden md:flex h-screen border-r-2 border-solid border-gray-300 flex-col justify-between">
         <div>
-          <img src={vicharLogo} className="w-[40px] mb-[50px]" />
-        </div>
-        {headerData.map((item) => {
-          const IconComponent = iconComponents[item.icon];
-          return (
-            <div key={item.id} className="flex items-center gap-5 mb-5">
-              <img
-                src={IconComponent}
-                className="w-[25px] h-[25px] stroke-cyan-500 fill-red-500"
-              />
-              <h2 className="text-[18px] text-textLight dark:text-textDark">
-                {item.title}
-              </h2>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex flex-col gap-5">
-        <button className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-full text-white p-3 rounded-full">
-          Post
-        </button>
-        <div className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors px-4 py-3">
-          <div className="flex justify-center items-center gap-3">
-            <figure>
-              <img
-                src="https://img.freepik.com/free-photo/pleasant-looking-caucasian-female-with-long-hair-wearing-yellow-casual-shirt-having-good-mood-looking-happily-camera_176532-11558.jpg"
-                className="w-[50px] h-[50px] rounded-full bg-cover bg-center object-cover"
-                alt=""
-              />
-            </figure>
-            <div>
-              <p className="font-bold text-[16px] text-textLight dark:text-textDark">
-                Piyush Pardeshi
-              </p>
-              <p className="text-[14px] text-textLight dark:text-textDark">
-                @pixi
-              </p>
-            </div>
+          <div className="flex items-center justify-center xl:justify-start">
+            <img src={vicharLogo} className="w-[40px] mb-[50px]" />
           </div>
-          <BsThreeDots
-            size={20}
-            className="text-textLight dark:text-textDark"
-          />
+          {headerData.map((item) => {
+            const IconComponent = iconComponents[item.icon];
+            return (
+              <div
+                key={item.id}
+                className="flex items-center justify-center xl:justify-start gap-5 mb-5"
+              >
+                <img
+                  src={IconComponent}
+                  className="w-[25px] h-[25px] stroke-cyan-500 "
+                />
+                <h2 className="text-[18px] text-textLight dark:text-textDark hidden xl:block">
+                  {item.title}
+                </h2>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex flex-col gap-5">
+          <button className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-fit xl:w-full text-white p-3 rounded-full ">
+            <span className="hidden xl:block">Post</span>
+            <img src={AddVichar} className="xl:hidden block w-[25px]" />
+          </button>
+          <div className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3">
+            <div className="flex justify-center items-center gap-3">
+              <figure>
+                <img
+                  src="https://img.freepik.com/free-photo/pleasant-looking-caucasian-female-with-long-hair-wearing-yellow-casual-shirt-having-good-mood-looking-happily-camera_176532-11558.jpg"
+                  className="w-[50px] h-[50px] rounded-full bg-cover bg-center object-cover"
+                  alt=""
+                />
+              </figure>
+              <div className="hidden xl:block">
+                <p className="font-bold text-[1em] text-textLight dark:text-textDark">
+                  Piyush Pardeshi
+                </p>
+                <p className="text-[14px] text-textLight dark:text-textDark">
+                  @pixi
+                </p>
+              </div>
+            </div>
+            <BsThreeDots
+              size={20}
+              className="text-textLight dark:text-textDark hidden xl:block  "
+            />
+          </div>
+        </div>
+      </div>
+      {/* // Mobile header */}
+      <div className="md:hidden w-full h-fit p-5 fixed top-0 bg-bgLight dark:bg-bgDark flex justify-center items-center">
+        <div className="w-full max-w-md flex flex-row justify-between ">
+          <figure>
+            <img
+              src="https://img.freepik.com/free-photo/pleasant-looking-caucasian-female-with-long-hair-wearing-yellow-casual-shirt-having-good-mood-looking-happily-camera_176532-11558.jpg"
+              className="w-[40px] h-[40px] rounded-full bg-cover bg-center object-cover"
+              alt=""
+            />
+          </figure>
+          <div className="flex items-center justify-center xl:justify-start">
+            <img src={vicharLogo} className="w-[30px] h-[30px]" />
+          </div>
+          <div className="flex items-center justify-center">
+            <img src={SettingIcon} alt="" className="w-[25px]" />
+          </div>
         </div>
       </div>
     </header>
