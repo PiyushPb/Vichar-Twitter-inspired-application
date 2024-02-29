@@ -67,7 +67,7 @@ const Login = () => {
   return isLoggedIn ? (
     <Navigate to="/" />
   ) : (
-    <div className="w-full h-[100vh] bg-bgLight dark:bg-bgDark">
+    <div className="w-full h-[100vh] bg-bgLight dark:bg-bgDark font-montserrat">
       <img
         src={loginBg}
         alt="..."

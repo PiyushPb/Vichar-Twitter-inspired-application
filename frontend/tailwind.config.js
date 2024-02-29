@@ -1,11 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
 
-export default {
+module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"], // Set Poppins as the default font
+        montserrat: ["Montserrat", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+      },
       colors: {
         ...colors,
         // light theme
@@ -21,6 +26,8 @@ export default {
         textDark: "#FFFFFFff",
         inputColorDark: "#1e1e1eff",
 
+        // common
+        matteblack: "#14202eff",
         richBlack: "#0A1321ff",
         primaryBlue: "#3DADF2ff",
       },
