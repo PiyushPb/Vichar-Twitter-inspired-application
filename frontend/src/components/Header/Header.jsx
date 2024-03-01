@@ -23,9 +23,9 @@ const Header = () => {
   const headerData = HeaderData;
 
   return (
-    <header className="z-10 w-fit h-fit bg-bgLight dark:bg-bgDark">
+    <header className="z-9 w-fit bg-bgLight h-screen dark:bg-bgDark">
       {/* // Computer header */}
-      <div className="p-6 md:max-w-[270px] md:min-w-[270px] lg:max-w-[350px] lg:min-w-[350px] w-fit hidden sm:flex h-screen border-r-2 border-solid border-gray-300 flex-col justify-between">
+      <div className="h-full p-6 md:max-w-[270px] md:min-w-[270px] lg:max-w-[350px] lg:min-w-[350px] w-fit hidden sm:flex border-r-2 border-solid border-gray-300 dark:border-darkBorderColor flex-col justify-between">
         <div>
           <div className="flex items-center justify-center sm:justify-center md:justify-start">
             <img src={vicharLogo} className="w-[40px] mb-[50px]" />
@@ -33,24 +33,27 @@ const Header = () => {
           {headerData.map((item) => {
             const IconComponent = iconComponents[item.icon];
             return (
-              <div
-                key={item.id}
-                className="flex items-center justify-center sm:justify-center md:justify-start gap-5 mb-5"
-              >
-                <img src={IconComponent} className="w-[25px] h-[25px] " />
-                <h2 className="text-[18px] text-textLight dark:text-textDark hidden md:block">
-                  {item.title}
-                </h2>
+              <div className="cursor-pointer">
+                <div
+                  key={item.id}
+                  className="flex items-center justify-center sm:justify-center md:justify-start gap-5 mb-5 py-2"
+                >
+                  <img src={IconComponent} className="w-[25px] h-[25px] " />
+                  <h2 className="text-[18px] text-textLight dark:text-textDark hidden md:block">
+                    {item.title}
+                  </h2>
+                </div>
               </div>
             );
           })}
         </div>
+        <div className="flex h-full flex-grow">test</div>
         <div className="flex flex-col gap-5">
           <button className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-fit sm:w-full text-white p-3 rounded-full ">
             <span className="hidden md:block">Post</span>
             <img src={AddVichar} className="md:hidden block w-[25px]" />
           </button>
-          <div className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3">
+          <div className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3 md:px-3 md:py-2">
             <div className="flex justify-center items-center gap-3">
               <figure>
                 <img

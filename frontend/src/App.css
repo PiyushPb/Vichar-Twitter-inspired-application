@@ -1,0 +1,13 @@
+.feedScroll {
+  width: 100%;
+  height: 95vh !important;
+  overflow-y: scroll;
+  scrollbar-width: 0;
+}
+
+.feedScroll::-webkit-scrollbar {
+  width: 0;
+}
+.feedScroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}

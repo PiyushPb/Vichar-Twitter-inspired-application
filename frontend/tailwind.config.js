@@ -19,12 +19,15 @@ module.exports = {
         white: "#FFFFFFff",
         textLight: "#0A1321ff",
         inputColorLight: "#ebebeb",
+        lightHover: "#ebebebff",
 
         // dark theme
         bgDark: "#101010",
         primaryDark: "#FFFFFFff",
         textDark: "#FFFFFFff",
         inputColorDark: "#1e1e1eff",
+        darkBorderColor: "#1e1e1eff",
+        darkHover: "#1e1e1eff",
 
         // common
         matteblack: "#14202eff",
