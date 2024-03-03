@@ -62,9 +62,36 @@ export const registerUser = async (req, res) => {
       message: "User registered successfully",
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: "Internal server error. Please try again." + error,
+    });
+  }
+};
+
+export const checkUsername = async (req, res) => {
+  const { username } = req.body;
+
+  try {
+    let user = null;
+
+    user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(200).json({
+        availability: true,
+      });
+    } else {
+      return res.status(200).json({
+        availability: false,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error. Please try again.",
     });
   }
 };
@@ -75,11 +102,20 @@ export const login = async (req, res) => {
   try {
     let user = null;
 
-    user = await User.findOne({ credentials });
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(
+      credentials
+    );
+    const phoneRegex = /^\d{9}$/.test(credentials);
+
+    if (emailRegex || phoneRegex) {
+      user = await User.findOne({ credentials });
+    } else {
+      user = await User.findOne({ username: credentials });
+    }
 
     if (!user) {
       return res
-        .status(404)
+        .status(401)
         .json({ success: false, message: "Invalid username or password." });
     }
 
