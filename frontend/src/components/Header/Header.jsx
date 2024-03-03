@@ -10,6 +10,9 @@ import PremiumIcon from "../../assets/HeaderIcons/Premium.svg";
 import AddVichar from "../../assets/HeaderIcons/AddVichar.svg";
 import SettingIcon from "../../assets/HeaderIcons/Settings.svg";
 import { BsThreeDots } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
+import { authContext } from "../../Context/AuthContext";
 
 const iconComponents = {
   HomeIcon,
@@ -22,6 +25,10 @@ const iconComponents = {
 const Header = () => {
   const headerData = HeaderData;
 
+  const { user } = React.useContext(authContext);
+
+  console.log(user);
+
   return (
     <header className="z-9 w-fit bg-bgLight h-screen dark:bg-bgDark">
       {/* // Computer header */}
@@ -33,7 +40,7 @@ const Header = () => {
           {headerData.map((item) => {
             const IconComponent = iconComponents[item.icon];
             return (
-              <div className="cursor-pointer">
+              <Link to={item.path} className="cursor-pointer">
                 <div
                   key={item.id}
                   className="flex items-center justify-center sm:justify-center md:justify-start gap-5 mb-5 py-2"
@@ -43,16 +50,19 @@ const Header = () => {
                     {item.title}
                   </h2>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
         <div className="flex h-full flex-grow">test</div>
         <div className="flex flex-col gap-5">
-          <button className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-fit sm:w-full text-white p-3 rounded-full ">
-            <span className="hidden md:block">Post</span>
-            <img src={AddVichar} className="md:hidden block w-[25px]" />
-          </button>
+          {/* TODO: Add Post button handler here */}
+          <Link to={"/"}>
+            <button className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-fit sm:w-full text-white p-3 rounded-full ">
+              <span className="hidden md:block">Post</span>
+              <img src={AddVichar} className="md:hidden block w-[25px]" />
+            </button>
+          </Link>
           <div className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3 md:px-3 md:py-2">
             <div className="flex justify-center items-center gap-3">
               <figure>
@@ -64,10 +74,10 @@ const Header = () => {
               </figure>
               <div className="hidden md:block">
                 <p className="font-bold text-[1em] md:text-[14px] text-textLight dark:text-textDark">
-                  Piyush Pardeshi
+                  {user?.name}
                 </p>
                 <p className="text-[14px] md:text-[12px] text-textLight dark:text-textDark">
-                  @pixi
+                  @{user?.username}
                 </p>
               </div>
             </div>

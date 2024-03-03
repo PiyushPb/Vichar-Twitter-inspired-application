@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  name: { type: String, required: true },
   email: { type: String, unique: true, sparse: true },
   phone: { type: String, unique: true, sparse: true },
   bio: { type: String },
@@ -27,9 +28,9 @@ const UserSchema = new mongoose.Schema({
   isBanned: { type: Boolean, default: false },
   tokens: [
     {
-      opt : {type: Number}
-    }
-  ]
+      opt: { type: Number },
+    },
+  ],
 });
 
 export default mongoose.model("User", UserSchema);

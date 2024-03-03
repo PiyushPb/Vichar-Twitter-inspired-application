@@ -46,9 +46,9 @@ const WelcomePage = () => {
               <p className="text-white">or</p>
               <div className="w-full border border-solid border-sky-100"></div>
             </div>
-            <Link to="/login">
+            <Link to="/signup">
               <button className="px-5 w-full py-4 bg-primaryBlue text-white rounded-full hover:bg-[#2184c5] hover:text-white transition-colors">
-                Login Email or Username
+                Signup Email or Username
               </button>
             </Link>
             <p className="text-white font-thin text-[12px] px-5 mt-2 mb-10">
@@ -69,9 +69,9 @@ const WelcomePage = () => {
             <p className="text-white text-center mb-3 font-bold">
               Already have an account?
             </p>
-            <Link to="/signup">
+            <Link to="/login">
               <button className="px-5 w-full py-4 text-primaryBlue border-solid border-primaryBlue border-[3px] rounded-full hover:bg-primaryBlue hover:text-white transition-colors">
-                Sign in
+                Login
               </button>
             </Link>
           </div>

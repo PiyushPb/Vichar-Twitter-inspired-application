@@ -25,7 +25,7 @@ function App() {
         theme={theme}
         transition:Bounce
       />
-      <ImageDisplayContainer />
+      {/* <ImageDisplayContainer /> */}
       <Router>
         <Routers />
       </Router>

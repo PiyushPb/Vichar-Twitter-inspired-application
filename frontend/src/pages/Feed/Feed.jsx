@@ -11,7 +11,7 @@ const Feed = () => {
     "https://source.unsplash.com/random?q=4",
   ];
   return (
-    <div className="w-fullrelative">
+    <div className="w-full relative">
       <FeedHeader />
       <div className="w-full overflow-y-scroll pb-[220px] sm:pb-[20px] feedScroll">
         <PostCard postIndex={1} images={images} />
