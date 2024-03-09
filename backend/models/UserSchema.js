@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import mongooseHidden from "mongoose-hidden";
 
 const UserSchema = new mongoose.Schema({
   credentials: {
@@ -31,6 +30,10 @@ const UserSchema = new mongoose.Schema({
       opt: { type: Number },
     },
   ],
+  followers: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "FollowingData",
+  },
 });
 
 export default mongoose.model("User", UserSchema);
