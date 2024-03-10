@@ -4,7 +4,7 @@ import React from "react";
 
 import { IoCalendarNumberOutline } from "react-icons/io5";
 
-const ProfileSection = () => {
+const ProfileSection = ({ user }) => {
   return (
     <div className="flex flex-col">
       {/* profile cover photo */}
@@ -21,7 +21,7 @@ const ProfileSection = () => {
       <div className="flex items-center justify-between w-full h-fit px-5">
         <div className="mt-[-60px] sm:mt-[-70px]">
           <img
-            src="https://source.unsplash.com/random"
+            src={user?.profilePic}
             alt="Profile"
             className="w-[120px] sm:w-[150px] h-[120px] sm:h-[150px] object-cover rounded-full border-2 border-solid border-textLight dark:border-textDark"
           />
@@ -33,16 +33,18 @@ const ProfileSection = () => {
       {/* profile information */}
       <div className="p-5 mt-3 flex flex-col gap-1">
         <p className="text-textLight dark:text-textDark text-[18px] font-bold">
-          Piyush Pardeshi
+          {user?.name}
         </p>
         <p className="text-textLight dark:text-textDark text-[14px] opacity-80">
-          @pixi
+          {user?.username}
         </p>
         <div className="mt-2 flex gap-2 justify-start items-center opacity-70">
           <IoCalendarNumberOutline
             className="text-textLight dark:text-textDark"
             size={20}
           />
+
+          {/* TODO: Add joined date */}
           <p className="text-textLight dark:text-textDark text-[14px]">
             Joined March 2020
           </p>
