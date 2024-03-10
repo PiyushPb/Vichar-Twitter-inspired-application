@@ -63,11 +63,14 @@ const Header = () => {
               <img src={AddVichar} className="md:hidden block w-[25px]" />
             </button>
           </Link>
-          <div className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3 md:px-3 md:py-2">
+          <Link
+            to={`${user?.username}`}
+            className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3 md:px-3 md:py-2"
+          >
             <div className="flex justify-center items-center gap-3">
               <figure>
                 <img
-                  src="https://img.freepik.com/free-photo/pleasant-looking-caucasian-female-with-long-hair-wearing-yellow-casual-shirt-having-good-mood-looking-happily-camera_176532-11558.jpg"
+                  src={user?.profilePic}
                   className="w-[50px] h-[50px] rounded-full bg-cover bg-center object-cover"
                   alt=""
                 />
@@ -85,7 +88,7 @@ const Header = () => {
               size={20}
               className="text-textLight dark:text-textDark hidden md:block  "
             />
-          </div>
+          </Link>
         </div>
       </div>
       {/* // Mobile header */}
@@ -93,7 +96,7 @@ const Header = () => {
         <div className="w-full max-w-md flex flex-row justify-between ">
           <figure>
             <img
-              src="https://img.freepik.com/free-photo/pleasant-looking-caucasian-female-with-long-hair-wearing-yellow-casual-shirt-having-good-mood-looking-happily-camera_176532-11558.jpg"
+              src={user?.profilePic}
               className="w-[40px] h-[40px] rounded-full bg-cover bg-center object-cover"
               alt=""
             />

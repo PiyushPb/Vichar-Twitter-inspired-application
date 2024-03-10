@@ -18,7 +18,11 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, sparse: true },
   phone: { type: String, unique: true, sparse: true },
   bio: { type: String },
-  profilePic: { type: String },
+  profilePic: {
+    type: String,
+    default:
+      "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg",
+  },
   gender: { type: String },
   location: { type: String },
   dob: { type: Date },

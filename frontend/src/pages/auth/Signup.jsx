@@ -6,8 +6,11 @@ import { toast } from "react-toastify";
 import Loading from "../../Loading/Loading";
 import { authContext } from "../../Context/AuthContext";
 import loginBg from "../../assets/loginbg.webp";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const { isLoggedIn } = useContext(authContext);
 
   const [validcredentials, setValidcredentials] = useState("");
@@ -155,6 +158,7 @@ const Signup = () => {
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message);
+        navigate("/login");
       } else {
         const errorData = await response.json();
         toast.error(errorData.message);
