@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
+import UserInformation from "./UserInformation";
+import PostContent from "./PostContent";
+import PostImage from "./PostImage";
+import PostActions from "./PostActions";
 
 const PostCard = ({ postIndex, images }) => {
   const [toggleCardSettings, setToggleCardSettings] = useState(false);
@@ -48,7 +52,7 @@ const PostCard = ({ postIndex, images }) => {
       gridClassName = "grid-cols-2";
       break;
     case 3:
-      gridClassName = "grid-cols-3";
+      gridClassName = "grid-cols-4";
       break;
     case 4:
       gridClassName = "grid-cols-2 md:grid-cols-2";
@@ -75,17 +79,10 @@ const PostCard = ({ postIndex, images }) => {
               </figure>
             </div>
             <div className="flex flex-row justify-between items-center w-full font-montserrat">
-              <div>
-                <p className="ml-3 text-textLight dark:text-textDark text-[14px] font-bold">
-                  Piyush Pardeshi
-                </p>
-                <p className="ml-3 text-textLight dark:text-textDark opacity-90 text-[14px]">
-                  @pixi
-                </p>
-              </div>
+              <UserInformation username="Piyush Pardeshi" handle="pixi" />
               <div className="flex items-center justify-center sm:justify-center md:justify-start relative">
                 <BsThreeDots
-                  className="text-textLight dark:text-textDark p-2 rounded-full hover:text-primaryBlue hover:bg-blue-200 dark:hover:bg-darkHover cursor-pointer transition ease-in-out duration-200"
+                  className="text-textLight dark:text-textDark p-2 rounded-full hover:text-primaryBlue hover:bg-blue-200 cursor-pointer transition ease-in-out duration-200 dark:hover:text-primaryBlue dark:hover:bg-gray-700"
                   size={35}
                   onClick={(e) => toggleSettings(e)}
                 />
@@ -107,48 +104,13 @@ const PostCard = ({ postIndex, images }) => {
             </div>
           </div>
           {/* post content */}
-          <div className=" mt-3">
-            <p className="text-textLight dark:text-textDark">
-              {markTag(
-                "Lorem ipsum dolor sit amet, #consectetur adipiscing elit. Duis ultrices, quam id accumsan fermentum, massa diam #YourHashtag"
-              )}
-            </p>
-          </div>
+          <PostContent
+            content="Lorem ipsum dolor sit amet, #consectetur adipiscing elit. Duis ultrices, quam id accumsan fermentum, massa diam #YourHashtag"
+            markTag={markTag}
+          />
           {/* post image */}
-          <div
-            className={`grid mt-4 gap-1 items-stretch  ${
-              images.length === 3 ? "grid-cols-2" : gridClassName
-            }`}
-          >
-            {images.map((imageUrl, index) => (
-              <div
-                key={index}
-                className={`${
-                  index === 2 && images.length === 3
-                    ? "col-span-3"
-                    : "col-span-1"
-                } ${index === 3 ? "col-span-1" : ""} ${
-                  index === 2 && images.length === 3 ? "pr-[4px]" : ""
-                }`}
-              >
-                <img
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("Image clicked - ", index);
-                  }}
-                  src={imageUrl}
-                  alt={`pr-${index}`}
-                  className={`max-h-[400px] w-fit rounded-md object-cover ${
-                    images.length === 2 ? "h-[350px] sm:h-[400px] w-full" : ""
-                  } ${
-                    images.length === 3 ? "h-[200px] sm:h-[250px] w-full" : ""
-                  } ${
-                    images.length === 4 ? "h-[200px] sm:h-[250px] w-full" : ""
-                  }`}
-                />
-              </div>
-            ))}
-          </div>
+          <PostImage images={images} gridClassName={gridClassName} />
+          <PostActions />
         </div>
       </div>
     </>

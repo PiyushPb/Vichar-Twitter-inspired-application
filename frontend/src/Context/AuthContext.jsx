@@ -5,12 +5,10 @@ import React, {
   useEffect,
   useReducer,
 } from "react";
+import axios from "axios";
 
 const initialState = {
-  user:
-    localStorage.getItem("user") !== "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : null,
+  user: null,
   token: localStorage.getItem("token") || null,
 };
 
@@ -42,19 +40,39 @@ const authReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
-    localStorage.setItem("token", state.token);
+    console.log("fetching user data");
+    const fetchUserData = async () => {
+      try {
+        const UserURL = "http://localhost:8000/v1/user/currentUser";
+        const response = await axios.get(UserURL, {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        });
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: { user: response.data.data, token: state.token }, // This line needs to be updated
+        });
+        setIsLoggedIn(true);
+        localStorage.setItem("token", state.token); // Update token in local storage
+        console.log("RESPONSE DATA : ", response.data.data);
+      } catch (error) {
+        // Handle error, e.g., token expired, unauthorized, etc.
+        console.error("Failed to fetch user data:", error);
+        dispatch({ type: "LOGOUT" });
+        setIsLoggedIn(false);
+      }
+    };
 
-    if (state.user && state.token) {
-      setIsLoggedIn(true);
+    if (state.token) {
+      fetchUserData();
     } else {
       setIsLoggedIn(false);
     }
-  }, [state]);
+  }, [state.token]);
 
   return (
     <authContext.Provider

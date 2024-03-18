@@ -8,7 +8,7 @@ const Feed = () => {
     "https://source.unsplash.com/random?q=1",
     "https://source.unsplash.com/random?q=2",
     "https://source.unsplash.com/random?q=3",
-    "https://source.unsplash.com/random?q=4",
+    // "https://source.unsplash.com/random?q=4",
   ];
   return (
     <div className="w-full relative">
