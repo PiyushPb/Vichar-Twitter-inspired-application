@@ -27,8 +27,6 @@ const Header = () => {
 
   const { user } = React.useContext(authContext);
 
-  console.log(user);
-
   return (
     <header className="z-9 w-fit bg-bgLight h-screen dark:bg-bgDark">
       {/* // Computer header */}
@@ -51,7 +49,6 @@ const Header = () => {
             );
           })}
         </div>
-        <div className="flex h-full flex-grow">test</div>
         <div className="flex flex-col gap-5">
           {/* TODO: Add Post button handler here */}
           <Link to={"/"}>

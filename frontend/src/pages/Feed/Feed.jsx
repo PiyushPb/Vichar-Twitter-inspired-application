@@ -5,9 +5,9 @@ import PostCard from "../../components/Postcard/PostCard";
 
 const Feed = () => {
   const images = [
-    // "https://source.unsplash.com/random?q=1",
-    // "https://source.unsplash.com/random?q=2",
-    // "https://source.unsplash.com/random?q=3",
+    "https://source.unsplash.com/random?q=1",
+    "https://source.unsplash.com/random?q=2",
+    "https://source.unsplash.com/random?q=3",
     // "https://source.unsplash.com/random?q=4",
   ];
   return (

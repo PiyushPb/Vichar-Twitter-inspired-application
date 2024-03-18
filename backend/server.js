@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import authRoutes from "./routes/AuthRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import tweetRoutes from "./routes/TweetRoutes.js";
 
 const app = express();
 
@@ -33,5 +34,6 @@ app.get("/", (req, res) => {
 
 app.use("/v1/auth/", authRoutes);
 app.use("/v1/user/", userRoutes);
+app.use("/v1/tweet/", tweetRoutes);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
