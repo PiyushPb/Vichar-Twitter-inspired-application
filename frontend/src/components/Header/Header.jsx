@@ -40,11 +40,8 @@ const Header = () => {
           {headerData.map((item) => {
             const IconComponent = iconComponents[item.icon];
             return (
-              <Link to={item.path} className="cursor-pointer">
-                <div
-                  key={item.id}
-                  className="flex items-center justify-center sm:justify-center md:justify-start gap-5 mb-5 py-2"
-                >
+              <Link to={item.path} key={item.id} className="cursor-pointer">
+                <div className="flex items-center justify-center sm:justify-center md:justify-start gap-5 mb-5 py-2">
                   <img src={IconComponent} className="w-[25px] h-[25px] " />
                   <h2 className="text-[18px] text-textLight dark:text-textDark hidden md:block">
                     {item.title}

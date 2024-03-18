@@ -1,10 +1,14 @@
 // TODO: Add a alt image in the cover photo
-
-import React from "react";
+import React, { useContext } from "react";
+import { authContext } from "../../Context/AuthContext";
 
 import { IoCalendarNumberOutline } from "react-icons/io5";
 
 const ProfileSection = ({ user }) => {
+  const { user: currentUser } = useContext(authContext);
+
+  const isCurrentUser = currentUser._id === user._id;
+
   return (
     <div className="flex flex-col">
       {/* profile cover photo */}
@@ -26,9 +30,11 @@ const ProfileSection = ({ user }) => {
             className="w-[120px] sm:w-[150px] h-[120px] sm:h-[150px] object-cover rounded-full border-2 border-solid border-textLight dark:border-textDark"
           />
         </div>
-        <div className="text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:bg-primaryBlue hover:text-white transition duration-200 ease-in-out cursor-pointer mt-5">
-          Edit Profile
-        </div>
+        {isCurrentUser && (
+          <div className="text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:bg-primaryBlue hover:text-white transition duration-200 ease-in-out cursor-pointer mt-5">
+            Edit Profile
+          </div>
+        )}
       </div>
       {/* profile information */}
       <div className="p-5 mt-3 flex flex-col gap-1">

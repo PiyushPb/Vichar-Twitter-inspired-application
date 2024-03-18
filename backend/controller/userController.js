@@ -24,13 +24,14 @@ export const getSingleUser = async (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const user = await User.findById(id).select("-password");
+    // Assuming req.userId holds the user ID from the decoded token
+    const user = await User.findById(req.userId).select("-password");
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "No user found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     res.status(200).json({

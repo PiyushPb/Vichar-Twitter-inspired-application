@@ -13,9 +13,6 @@ const HomePage = () => {
       <section className="bg-bgLight dark:bg-bgDark flex flex-col sm:flex-row h-screen max-w-[1600px] mx-auto overflow-hidden">
         <Header />
         <div className="container p-0 max-w-full h-fit relative top-[80px] sm:top-0">
-          {/* {currentPage === "Feed" && <Feed />} */}
-          {/* <Feed /> */}
-          {/* <Profile /> */}
           <Outlet />
         </div>
         <div className="relative">
