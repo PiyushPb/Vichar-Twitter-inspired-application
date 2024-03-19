@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Routers from "./routes/Routers";
 import ImageDisplayContainer from "./components/ImageDisplayContainer";
+import CreatePost from "./components/Post/CreatePost";
 
 function App() {
   const { theme } = useTheme();
@@ -26,6 +27,7 @@ function App() {
         transition:Bounce
       />
       {/* <ImageDisplayContainer /> */}
+      <CreatePost />
       <Router>
         <Routers />
       </Router>
