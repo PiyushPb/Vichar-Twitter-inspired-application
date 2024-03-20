@@ -1,0 +1,16 @@
+.textarea-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.textarea-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.textarea-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.textarea-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}

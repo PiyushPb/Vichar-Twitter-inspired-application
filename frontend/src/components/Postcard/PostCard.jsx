@@ -5,7 +5,7 @@ import PostContent from "./PostContent";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
 
-const PostCard = ({ postIndex, images }) => {
+const PostCard = ({ postIndex, postData, userData }) => {
   const [toggleCardSettings, setToggleCardSettings] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const PostCard = ({ postIndex, images }) => {
 
   let gridClassName;
 
-  switch (images.length) {
+  switch (postData.images.length) {
     case 1:
       gridClassName = "grid-cols-1";
       break;
@@ -72,14 +72,17 @@ const PostCard = ({ postIndex, images }) => {
             <div>
               <figure className="w-[50px] h-[50px] object-cover rounded-full overflow-hidden mr-2">
                 <img
-                  src="https://source.unsplash.com/random"
+                  src={userData.profilePic}
                   alt="pr"
-                  className="w-full h-full"
+                  className="w-full h-full object-cover object-center"
                 />
               </figure>
             </div>
             <div className="flex flex-row justify-between items-center w-full font-montserrat">
-              <UserInformation username="Piyush Pardeshi" handle="pixi" />
+              <UserInformation
+                username={userData.name}
+                handle={userData.username}
+              />
               <div className="flex items-center justify-center sm:justify-center md:justify-start relative">
                 <BsThreeDots
                   className="text-textLight dark:text-textDark p-2 rounded-full hover:text-primaryBlue hover:bg-blue-200 cursor-pointer transition ease-in-out duration-200 dark:hover:text-primaryBlue dark:hover:bg-gray-700"
@@ -104,12 +107,9 @@ const PostCard = ({ postIndex, images }) => {
             </div>
           </div>
           {/* post content */}
-          <PostContent
-            content="Lorem ipsum dolor sit amet, #consectetur adipiscing elit. Duis ultrices, quam id accumsan fermentum, massa diam #YourHashtag"
-            markTag={markTag}
-          />
+          <PostContent content={postData.tweet} markTag={markTag} />
           {/* post image */}
-          <PostImage images={images} gridClassName={gridClassName} />
+          <PostImage images={postData.images} gridClassName={gridClassName} />
           <PostActions />
         </div>
       </div>
