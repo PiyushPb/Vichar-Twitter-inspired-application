@@ -4,8 +4,10 @@ import "./post.css";
 import CreatePostImageContainer from "./CreatePostImageContainer";
 
 const CreatePost = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [vichar, setVichar] = useState("");
+
+  const [images, setImages] = useState([]);
 
   const handleChange = (event) => {
     setVichar(event.target.value);
@@ -42,7 +44,7 @@ const CreatePost = () => {
       <div className="w-full md:w-fit h-fit overflow-y-auto md:transform md:-translate-x-1/2 md:-translate-y-1/2 absolute md:top-1/2 md:left-1/2 flex flex-col items-center gap-3">
         {/* TODO: Add close button */}
         <p className="text-white hidden md:block">Create Post</p>
-        <div className="w-full md:min-w-[700px] h-screen md:h-fit md:max-h-[80vh] bg-white dark:bg-black md:rounded-xl p-7 flex flex-col justify-between md:justify-start">
+        <div className="w-full md:min-w-[700px] h-screen md:h-fit md:max-h-[80vh] bg-white dark:bg-bgDark md:rounded-xl p-7 flex flex-col justify-between md:justify-start">
           <div className="flex gap-3 min-h-[150px]">
             <div>
               <figure className="w-[50px] h-[50px]">
@@ -65,17 +67,17 @@ const CreatePost = () => {
                     onChange={handleChange}
                     onInput={handleInput}
                     placeholder="What's on your mind"
-                    className="w-full bg-transparent outline-none resize-none overflow-y-hidden min-h-[100px]"
+                    className="w-full bg-transparent outline-none resize-none overflow-y-hidden min-h-[100px] dark:text-textDark"
                   />
                   <div id="image-container">
-                    <CreatePostImageContainer />
+                    <CreatePostImageContainer images={images} />
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <CreatePostFooter />
+            <CreatePostFooter setImages={setImages} />
           </div>
         </div>
       </div>

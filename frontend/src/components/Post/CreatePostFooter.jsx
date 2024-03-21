@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { LuImage } from "react-icons/lu";
 
-const CreatePostFooter = () => {
+const CreatePostFooter = ({ setImages }) => {
+  const fileInputRef = useRef(null);
+  const [selectedImagesCount, setSelectedImagesCount] = useState(0);
+
   const handleImageButtonClicked = () => {
-    const fileInput = document.getElementById("vicharImagesInput");
-    fileInput.click();
+    fileInputRef.current.click();
   };
 
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
-    const allowedFiles = selectedFiles.slice(0, 4);
+    const allowedFiles = selectedFiles.slice(0, 4 - selectedImagesCount);
 
-    const imageFiles = allowedFiles.filter((file) =>
-      file.type.startsWith("image/")
-    );
-    console.log("Selected images:", imageFiles);
+    if (selectedImagesCount + allowedFiles.length > 4) {
+      alert("You can only upload a maximum of 4 images");
+      return;
+    }
+
+    const newImages = allowedFiles
+      .filter((file) => file.type.startsWith("image/"))
+      .map((file) => ({
+        file: file,
+        url: URL.createObjectURL(file),
+      }));
+
+    setImages((prevImages) => [...prevImages, ...newImages]);
+    setSelectedImagesCount((prevCount) => prevCount + newImages.length);
   };
 
   return (
@@ -22,15 +34,17 @@ const CreatePostFooter = () => {
       <div className="">
         <input
           type="file"
+          ref={fileInputRef}
           className="hidden"
           id="vicharImagesInput"
           accept="image/*"
           multiple
           onChange={handleFileChange}
+          max={4}
         />
         <LuImage
           onClick={handleImageButtonClicked}
-          className="cursor-pointer hover:bg-rose-300 hover:text-rose-900 p-2 rounded-full transition duration-150 ease-in-out"
+          className="cursor-pointer hover:bg-rose-300 hover:text-rose-900 p-2 rounded-full transition duration-150 ease-in-out dark:text-white dark:hover:text-rose-900"
           size={35}
         />
       </div>

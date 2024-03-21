@@ -1,12 +1,12 @@
 import React from "react";
 
-const CreatePostImageContainer = () => {
-  const images = [
-    "https://picsum.photos/200/300",
-    // "https://picsum.photos/200/300",
-    // "https://picsum.photos/200/300",
-    // "https://picsum.photos/200/300",
-  ];
+const CreatePostImageContainer = ({ images }) => {
+  // const images = [
+  //   "https://picsum.photos/200/300",
+  //   // "https://picsum.photos/200/300",
+  //   // "https://picsum.photos/200/300",
+  //   // "https://picsum.photos/200/300",
+  // ];
 
   let gridClassName;
 
@@ -47,7 +47,7 @@ const CreatePostImageContainer = () => {
               e.stopPropagation();
               console.log("Image clicked - ", index);
             }}
-            src={imageUrl}
+            src={images[index].url}
             alt={`pr-${index}`}
             className={`max-h-[400px] w-fit rounded-md object-cover ${
               images.length === 2 ? "h-[350px] sm:h-[400px] w-full" : ""
