@@ -3,9 +3,9 @@ import React from "react";
 const CreatePostImageContainer = () => {
   const images = [
     "https://picsum.photos/200/300",
-    "https://picsum.photos/200/300",
-    "https://picsum.photos/200/300",
-    "https://picsum.photos/200/300",
+    // "https://picsum.photos/200/300",
+    // "https://picsum.photos/200/300",
+    // "https://picsum.photos/200/300",
   ];
 
   let gridClassName;
