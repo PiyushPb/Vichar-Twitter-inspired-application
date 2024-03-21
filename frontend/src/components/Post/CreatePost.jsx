@@ -16,9 +16,13 @@ const CreatePost = () => {
     target.style.height = "auto";
     target.style.height = `${target.scrollHeight}px`;
 
+    //image-container height
+    const imgContainer = document.getElementById("image-container");
+    let imgContainerHeight = imgContainer.offsetHeight;
+
     // Adjust parent div height
     const parentDiv = target.parentElement;
-    parentDiv.style.height = `${target.scrollHeight}px`;
+    parentDiv.style.height = `${imgContainerHeight}px` + imgContainerHeight;
 
     // Add or remove scrollbar class based on textarea height
     const textareaContainer = document.querySelector(".textarea-container");
@@ -54,15 +58,19 @@ const CreatePost = () => {
                 @pixi
                 {/* TODO: Add username dynamically */}
               </p>
-              <div className="textarea-container max-h-[80vh] md:max-h-[60vh] overflow-y-auto">
-                <textarea
-                  value={vichar}
-                  onChange={handleChange}
-                  onInput={handleInput}
-                  placeholder="What's on your mind"
-                  className="w-full bg-transparent outline-none resize-none overflow-y-hidden min-h-[100px]"
-                />
-                {/* <CreatePostImageContainer /> */}
+              <div className="w-full max-h-[80vh] md:max-h-[60vh] overflow-hidden mb-5">
+                <div className="textarea-container max-h-[80vh] md:max-h-[60vh] overflow-y-auto">
+                  <textarea
+                    value={vichar}
+                    onChange={handleChange}
+                    onInput={handleInput}
+                    placeholder="What's on your mind"
+                    className="w-full bg-transparent outline-none resize-none overflow-y-hidden min-h-[100px]"
+                  />
+                  <div id="image-container">
+                    <CreatePostImageContainer />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
