@@ -23,9 +23,30 @@ export const getSingleUser = async (req, res) => {
   }
 };
 
+export const getSingleUserUsingUID = async (req, res) => {
+  const { uid } = req.params;
+
+  try {
+    // Assuming uid is the same as MongoDB _id
+    const user = await User.findById(uid).select("name profilePic username");
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "No user found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User Found",
+      data: user,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
 export const getCurrentUser = async (req, res) => {
   try {
-    // Assuming req.userId holds the user ID from the decoded token
     const user = await User.findById(req.userId).select("-password");
 
     if (!user) {
