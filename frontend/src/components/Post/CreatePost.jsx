@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import CreatePostFooter from "./CreatePostFooter";
 import "./post.css";
+import CreatePostFooter from "./CreatePostFooter";
 import CreatePostImageContainer from "./CreatePostImageContainer";
+import { useCreatePostModel } from "../../Context/CreatePostModelContext";
 
 const CreatePost = () => {
-  const [open, setOpen] = useState(false);
+  const { showCreatePostModel, openCreatePostModel, closeCreatePostModel } =
+    useCreatePostModel();
   const [vichar, setVichar] = useState("");
-
   const [images, setImages] = useState([]);
 
   const handleChange = (event) => {
@@ -38,13 +39,17 @@ const CreatePost = () => {
   return (
     <div
       className={`w-full h-screen fixed z-10 bg-black backdrop-filter backdrop-blur-lg bg-opacity-60 ${
-        open ? "block" : "hidden"
+        showCreatePostModel ? "block" : "hidden"
       }`}
+      onClick={() => closeCreatePostModel()}
     >
       <div className="w-full md:w-fit h-fit overflow-y-auto md:transform md:-translate-x-1/2 md:-translate-y-1/2 absolute md:top-1/2 md:left-1/2 flex flex-col items-center gap-3">
         {/* TODO: Add close button */}
         <p className="text-white hidden md:block">Create Post</p>
-        <div className="w-full md:min-w-[700px] h-screen md:h-fit md:max-h-[80vh] bg-white dark:bg-bgDark md:rounded-xl p-7 flex flex-col justify-between md:justify-start">
+        <div
+          className="w-full md:min-w-[700px] h-screen md:h-fit md:max-h-[80vh] bg-white dark:bg-bgDark md:rounded-xl p-7 flex flex-col justify-between md:justify-start"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="flex gap-3 min-h-[150px]">
             <div>
               <figure className="w-[50px] h-[50px]">
@@ -77,7 +82,7 @@ const CreatePost = () => {
             </div>
           </div>
           <div>
-            <CreatePostFooter setImages={setImages} />
+            <CreatePostFooter setImages={setImages} vichar={vichar} />
           </div>
         </div>
       </div>

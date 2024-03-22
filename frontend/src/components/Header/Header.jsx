@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 
 import { authContext } from "../../Context/AuthContext";
 
+import { useCreatePostModel } from "../../Context/CreatePostModelContext";
+
 const iconComponents = {
   HomeIcon,
   SearchIcon,
@@ -24,6 +26,8 @@ const iconComponents = {
 
 const Header = () => {
   const headerData = HeaderData;
+
+  const { openCreatePostModel } = useCreatePostModel();
 
   const { user } = React.useContext(authContext);
 
@@ -50,13 +54,15 @@ const Header = () => {
           })}
         </div>
         <div className="flex flex-col gap-5">
-          {/* TODO: Add Post button handler here */}
-          <Link to={"/"}>
-            <button className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-fit sm:w-full text-white p-3 rounded-full ">
-              <span className="hidden md:block">Post</span>
-              <img src={AddVichar} className="md:hidden block w-[25px]" />
-            </button>
-          </Link>
+          <button
+            className="bg-primaryBlue hover:bg-[#307baa] transition-colors w-fit sm:w-full text-white p-3 rounded-full "
+            onClick={() => {
+              openCreatePostModel();
+            }}
+          >
+            <span className="hidden md:block">Post</span>
+            <img src={AddVichar} className="md:hidden block w-[25px]" />
+          </button>
           <Link
             to={`${user?.username}`}
             className="flex justify-between items-center gap-2 cursor-pointer rounded-full hover:bg-gray-300 dark:hover:bg-[#2b2b2b] transition-colors p-0 xl:px-4 xl:py-3 md:px-3 md:py-2"
