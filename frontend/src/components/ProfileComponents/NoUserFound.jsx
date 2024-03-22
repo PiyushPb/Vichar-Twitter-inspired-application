@@ -9,7 +9,9 @@ const NoUserFound = () => {
         <p className="font-bold text-textLight dark:text-textDark text-[30px]">
           This account (@{params.username}) doesn't exist
         </p>
-        <p>Try searching for someone else...</p>
+        <p className="text-textLight dark:text-textDark">
+          Try searching for someone else...
+        </p>
       </div>
     </div>
   );
