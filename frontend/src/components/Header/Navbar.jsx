@@ -6,6 +6,7 @@ import SearchIcon from "../../assets/HeaderIcons/Search.svg";
 import NotificationIcon from "../../assets/HeaderIcons/Notification.svg";
 import BookmarkIcon from "../../assets/HeaderIcons/Bookmark.svg";
 import PremiumIcon from "../../assets/HeaderIcons/Premium.svg";
+import { Link } from "react-router-dom";
 
 const iconComponents = {
   HomeIcon,
@@ -23,12 +24,12 @@ const Navbar = () => {
         {NavbarItems.map((item, index) => {
           const IconComponent = iconComponents[item.icon];
           return (
-            <div key={index}>
+            <Link to={item.path} key={index}>
               <img
                 src={IconComponent}
                 className="w-[25px] h-[25px] stroke-cyan-500 "
               />
-            </div>
+            </Link>
           );
         })}
       </div>
