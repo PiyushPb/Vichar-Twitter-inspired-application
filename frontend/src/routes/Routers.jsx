@@ -5,12 +5,14 @@ import Signup from "../pages/auth/Signup";
 import Home from "../pages/Home";
 import Profile from "../pages/profile/Profile";
 import Feed from "../pages/Feed/Feed";
+import Search from "../pages/Search/Search";
 
 const Routers = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />}>
         <Route index element={<Feed />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/:username" element={<Profile />} />
       </Route>
       <Route path="/login" element={<Login />} />

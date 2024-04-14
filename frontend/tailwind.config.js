@@ -28,6 +28,7 @@ module.exports = {
         inputColorDark: "#1e1e1eff",
         darkBorderColor: "#1e1e1eff",
         darkHover: "#1e1e1eff",
+        baseDark: "#1b1919ff",
 
         // common
         matteblack: "#14202eff",

@@ -167,4 +167,29 @@ export const changePassword = async (req, res) => {
   }
 };
 
+export const searchUser = async (req, res) => {
+  const { query } = req.params;
+  try {
+    let users;
+    if (query.trim() !== "") {
+      // Constructing the search query dynamically
+      const regex = new RegExp(`^${query}`, "i");
+      users = await User.find({
+        $or: [{ username: { $regex: regex } }, { name: { $regex: regex } }],
+      })
+        .limit(20)
+        .select("-password");
+    } else {
+      users = [];
+    }
+
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
 export const followUser = async (req, res) => {};
