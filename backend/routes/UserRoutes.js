@@ -6,6 +6,8 @@ import {
   getSingleUserUsingUID,
   changePassword,
   searchUser,
+  followUser,
+  unfollowUser,
 } from "../controller/userController.js";
 import { authenticate } from "../auth/verifyToken.js";
 
@@ -17,5 +19,7 @@ router.get("/userUID/:uid", authenticate, getSingleUserUsingUID);
 router.patch("/updateUserProfile/:id", authenticate, updateUserProfile);
 router.patch("/changePassword/:id", authenticate, changePassword);
 router.get("/searchUser/:query", authenticate, searchUser);
+router.put("/follow/:followId", authenticate, followUser);
+router.put("/unfollow/:unFollowId", authenticate, unfollowUser);
 
 export default router;
