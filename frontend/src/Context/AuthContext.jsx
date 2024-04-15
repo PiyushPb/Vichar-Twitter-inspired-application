@@ -28,6 +28,12 @@ const authReducer = (state, action) => {
         token: action.payload.token,
       };
 
+    case "UPDATE_USER":
+      return {
+        user: action.payload.user,
+        token: state.token,
+      };
+
     case "LOGOUT":
       return {
         user: null,
@@ -40,50 +46,59 @@ const authReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    console.log("fetching user data");
+    // Fetch user data only once when the component mounts
     const fetchUserData = async () => {
       try {
-        const UserURL = "http://localhost:8000/v1/user/currentUser";
-        const response = await axios.get(UserURL, {
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-        });
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: { user: response.data.data, token: state.token }, // This line needs to be updated
-        });
-        setIsLoggedIn(true);
-        localStorage.setItem("token", state.token); // Update token in local storage
-        console.log("RESPONSE DATA : ", response.data.data);
+        if (state.token) {
+          const UserURL = "http://localhost:8000/v1/user/currentUser";
+          const response = await axios.get(UserURL, {
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+            },
+          });
+          dispatch({
+            type: "LOGIN_SUCCESS",
+            payload: { user: response.data.data, token: state.token },
+          });
+        } else {
+          dispatch({ type: "LOGOUT" });
+        }
+        setIsInitialized(true);
       } catch (error) {
-        // Handle error, e.g., token expired, unauthorized, etc.
         console.error("Failed to fetch user data:", error);
         dispatch({ type: "LOGOUT" });
-        setIsLoggedIn(false);
+        setIsInitialized(true);
       }
     };
 
-    if (state.token) {
+    if (!isInitialized) {
       fetchUserData();
-    } else {
-      setIsLoggedIn(false);
     }
-  }, [state.token]);
+  }, [state.token, isInitialized]);
+
+  useEffect(() => {
+    // Update localStorage only when user or token changes
+    if (state.user) {
+      localStorage.setItem("user", JSON.stringify(state.user));
+    } else {
+      localStorage.removeItem("user");
+    }
+    localStorage.setItem("token", state.token);
+  }, [state.user, state.token]);
 
   return (
     <authContext.Provider
       value={{
         user: state.user,
         token: state.token,
-        isLoggedIn,
+        isLoggedIn: state.token !== null,
         dispatch,
       }}
     >
-      {children}
+      {isInitialized && children}
     </authContext.Provider>
   );
 };

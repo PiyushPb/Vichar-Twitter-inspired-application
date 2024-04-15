@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const { ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = new mongoose.Schema({
   credentials: {
@@ -34,10 +35,8 @@ const UserSchema = new mongoose.Schema({
       opt: { type: Number },
     },
   ],
-  followers: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "FollowingData",
-  },
+  followers: [{ type: ObjectId, ref: "User" }], // Use ObjectId instead of objectId
+  following: [{ type: ObjectId, ref: "User" }], // Use ObjectId instead of objectId
 });
 
 export default mongoose.model("User", UserSchema);

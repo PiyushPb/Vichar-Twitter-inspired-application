@@ -1,26 +1,74 @@
-// TODO: Add a alt image in the cover photo
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Context/AuthContext";
+import axios from "axios";
+import { backend_url, token } from "../../config/config";
 
-import { IoCalendarNumberOutline } from "react-icons/io5";
+import ProfileCover from "./Components/ProfileCover";
+import ProfileInfo from "./Components/ProfileInfo";
 
 const ProfileSection = ({ user }) => {
   const { user: currentUser } = useContext(authContext);
+  const [isFollowed, setIsFollowed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [followersCount, setFollowersCount] = useState(user?.followers.length);
+  const [followingCount, setFollowingCount] = useState(user?.following.length);
 
   const isCurrentUser = currentUser._id === user._id;
+
+  useEffect(() => {
+    setIsFollowed(currentUser.following.includes(user._id));
+  }, [currentUser.following, user._id]);
+
+  const handleFollow = async () => {
+    if (isCurrentUser) {
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `${backend_url}/v1/user/follow/${user._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setIsFollowed(true);
+      setFollowersCount((prevCount) => prevCount + 1); // Increment followers count
+    } catch (error) {
+      console.error("Failed to follow user:", error);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    if (isCurrentUser) {
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `${backend_url}/v1/user/unfollow/${user._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setIsFollowed(false);
+      setFollowersCount((prevCount) => prevCount - 1); // Decrement followers count
+    } catch (error) {
+      console.error("Failed to unfollow user:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col">
       {/* profile cover photo */}
-      <div>
-        <div className="w-full h-[140px] sm:h-[200px] overflow-hidden">
-          <img
-            src="https://source.unsplash.com/random"
-            alt="..."
-            className="object-center w-full h-full object-cover"
-          />
-        </div>
-      </div>
+      <ProfileCover />
       {/* profile photo */}
       <div className="flex items-center justify-between w-full h-fit px-5">
         <div className="mt-[-60px] sm:mt-[-70px]">
@@ -30,32 +78,35 @@ const ProfileSection = ({ user }) => {
             className="w-[120px] sm:w-[150px] h-[120px] sm:h-[150px] object-cover rounded-full border-2 border-solid border-textLight dark:border-textDark"
           />
         </div>
-        {isCurrentUser && (
+        {isCurrentUser ? (
           <div className="text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:bg-primaryBlue hover:text-white transition duration-200 ease-in-out cursor-pointer mt-5">
             Edit Profile
+          </div>
+        ) : (
+          <div className="transition duration-200 ease-in-out">
+            {isFollowed ? (
+              <div
+                className="text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:border-red-400 hover:text-red-400 dark:hover:text-red-400 transition duration-200 ease-in-out cursor-pointer mt-5 flex justify-center items-center"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={handleUnfollow}
+              >
+                {isHovered ? "Unfollow" : "Followed"}
+              </div>
+            ) : (
+              <div className="follow-btn" onClick={handleFollow}>
+                Follow
+              </div>
+            )}
           </div>
         )}
       </div>
       {/* profile information */}
-      <div className="p-5 mt-3 flex flex-col gap-1">
-        <p className="text-textLight dark:text-textDark text-[18px] font-bold">
-          {user?.name}
-        </p>
-        <p className="text-textLight dark:text-textDark text-[14px] opacity-80">
-          {user?.username}
-        </p>
-        <div className="mt-2 flex gap-2 justify-start items-center opacity-70">
-          <IoCalendarNumberOutline
-            className="text-textLight dark:text-textDark"
-            size={20}
-          />
-
-          {/* TODO: Add joined date */}
-          <p className="text-textLight dark:text-textDark text-[14px]">
-            Joined March 2020
-          </p>
-        </div>
-      </div>
+      <ProfileInfo
+        user={user}
+        followersCount={followersCount}
+        followingCount={followingCount}
+      />
     </div>
   );
 };

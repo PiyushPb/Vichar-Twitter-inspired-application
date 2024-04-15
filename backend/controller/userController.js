@@ -1,5 +1,4 @@
 import User from "../models/UserSchema.js";
-import Follower from "../models/FollowingDataSchema.js";
 import bcrypt from "bcrypt";
 
 export const getSingleUser = async (req, res) => {
@@ -192,4 +191,70 @@ export const searchUser = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
-export const followUser = async (req, res) => {};
+
+export const followUser = async (req, res) => {
+  try {
+    const alreadyFollowing = await User.findOne({
+      _id: req.userId,
+      following: req.params.followId,
+    });
+
+    if (alreadyFollowing) {
+      return res
+        .status(422)
+        .json({ error: "You have already followed this user." });
+    }
+
+    // Update the user being followed to add the follower
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.followId,
+      { $push: { followers: req.userId } },
+      { new: true }
+    );
+
+    // Update the current user to add the user they followed
+    const currentUser = await User.findByIdAndUpdate(
+      req.userId,
+      { $push: { following: req.params.followId } },
+      { new: true }
+    );
+
+    res.json({ updatedUser, currentUser });
+  } catch (error) {
+    console.error(error);
+    res.status(422).json({ error: error.message });
+  }
+};
+
+export const unfollowUser = async (req, res) => {
+  try {
+    const alreadyFollowing = await User.findOne({
+      _id: req.userId,
+      following: req.params.unFollowId, // Corrected parameter name
+    });
+
+    if (!alreadyFollowing) {
+      // Changed condition to check if already following
+      return res
+        .status(422)
+        .json({ error: "You are not following this user." });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.unFollowId, // Corrected parameter name
+      { $pull: { followers: req.userId } },
+      { new: true }
+    );
+
+    const currentUser = await User.findByIdAndUpdate(
+      req.userId,
+      { $pull: { following: req.params.unFollowId } },
+      { new: true }
+    );
+
+    res.json({ updatedUser, currentUser });
+  } catch (error) {
+    console.error(error);
+    res.status(422).json({ error: error.message });
+  }
+};
