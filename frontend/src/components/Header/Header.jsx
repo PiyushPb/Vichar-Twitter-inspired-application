@@ -92,18 +92,22 @@ const Header = () => {
         </div>
       </div>
       {/* // Mobile header */}
-      <div className="sm:hidden w-full h-fit p-5 fixed top-0 bg-bgLight dark:bg-bgDark flex justify-center items-center">
+      <div className="sm:hidden w-full h-fit p-5 fixed top-0 bg-bgLight dark:bg-bgDark flex justify-center items-center z-10">
         <div className="w-full max-w-md flex flex-row justify-between ">
-          <figure>
-            <img
-              src={user?.profilePic}
-              className="w-[40px] h-[40px] rounded-full bg-cover bg-center object-cover"
-              alt=""
-            />
-          </figure>
-          <div className="flex items-center justify-center xl:justify-start">
-            <img src={vicharLogo} className="w-[30px] h-[30px]" />
-          </div>
+          <Link to={`${user?.username}`}>
+            <figure>
+              <img
+                src={user?.profilePic}
+                className="w-[40px] h-[40px] rounded-full bg-cover bg-center object-cover"
+                alt=""
+              />
+            </figure>
+          </Link>
+          <Link to={"/"}>
+            <div className="flex items-center justify-center xl:justify-start">
+              <img src={vicharLogo} className="w-[30px] h-[30px]" />
+            </div>
+          </Link>
           <div className="flex items-center justify-center">
             <img src={SettingIcon} alt="" className="w-[25px]" />
           </div>

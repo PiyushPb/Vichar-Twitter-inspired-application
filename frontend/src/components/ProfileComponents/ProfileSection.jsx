@@ -6,6 +6,8 @@ import { backend_url, token } from "../../config/config";
 import ProfileCover from "./Components/ProfileCover";
 import ProfileInfo from "./Components/ProfileInfo";
 
+import PostCard from "../Postcard/PostCard";
+
 const ProfileSection = ({ user }) => {
   const { user: currentUser } = useContext(authContext);
   const [isFollowed, setIsFollowed] = useState(false);
@@ -13,11 +15,32 @@ const ProfileSection = ({ user }) => {
   const [followersCount, setFollowersCount] = useState(user?.followers.length);
   const [followingCount, setFollowingCount] = useState(user?.following.length);
 
+  const [userTweets, setUserTweets] = useState([]);
+
   const isCurrentUser = currentUser._id === user._id;
 
   useEffect(() => {
     setIsFollowed(currentUser.following.includes(user._id));
   }, [currentUser.following, user._id]);
+
+  const getUserTweets = async () => {
+    try {
+      axios
+        .get(`${backend_url}/v1/tweet/getUserTweets/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          setUserTweets(response.data.tweets);
+        });
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getUserTweets();
+  }, [user._id]);
 
   const handleFollow = async () => {
     if (isCurrentUser) {
@@ -66,9 +89,11 @@ const ProfileSection = ({ user }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full overflow-y-scroll pb-[220px] sm:pb-[45px] feedScroll">
       {/* profile cover photo */}
-      <ProfileCover />
+      <div>
+        <ProfileCover />
+      </div>
       {/* profile photo */}
       <div className="flex items-center justify-between w-full h-fit px-5">
         <div className="mt-[-60px] sm:mt-[-70px]">
@@ -107,6 +132,23 @@ const ProfileSection = ({ user }) => {
         followersCount={followersCount}
         followingCount={followingCount}
       />
+
+      <div>
+        {userTweets.length === 0 ? (
+          <p className="text-textLight dark:text-textDark text-[16px] px-5">
+            No tweets found for {user?.name}
+          </p>
+        ) : (
+          userTweets.map((tweet, index) => (
+            <PostCard
+              key={index}
+              postIndex={index + 1}
+              postData={tweet}
+              userData={user}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };
