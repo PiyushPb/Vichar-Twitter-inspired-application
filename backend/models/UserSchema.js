@@ -35,8 +35,9 @@ const UserSchema = new mongoose.Schema({
       opt: { type: Number },
     },
   ],
-  followers: [{ type: ObjectId, ref: "User" }], // Use ObjectId instead of objectId
-  following: [{ type: ObjectId, ref: "User" }], // Use ObjectId instead of objectId
+  following: [{ type: ObjectId, ref: "User" }],
+  followers: [{ type: ObjectId, ref: "User" }],
+  tweets: [{ type: ObjectId, ref: "Tweet" }],
 });
 
 export default mongoose.model("User", UserSchema);

@@ -2,7 +2,7 @@ import React from "react";
 
 const ProfileCover = () => {
   return (
-    <div className="w-full h-[140px] sm:h-[200px] overflow-hidden">
+    <div className="w-full h-[140px] sm:h-[200px] overflow-hidden block">
       <img
         src="https://source.unsplash.com/random"
         alt="..."

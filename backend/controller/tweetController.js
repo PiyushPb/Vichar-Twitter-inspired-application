@@ -1,4 +1,5 @@
 import Tweet from "../models/TweetsSchema.js";
+import User from "../models/UserSchema.js";
 
 export const createTweet = async (req, res) => {
   try {
@@ -26,6 +27,19 @@ export const createTweet = async (req, res) => {
     });
 
     await newTweet.save();
+
+    const updateUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { tweets: newTweet._id } },
+      { new: true }
+    );
+
+    if (!updateUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     return res.status(201).json({
       success: true,
@@ -105,6 +119,41 @@ export const likeTweet = async (req, res) => {
     });
   } catch (error) {
     console.error("Error liking / unliking tweet:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const getUsersTweet = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const tweets = await Tweet.find({ userId }).sort({ createdAt: -1 });
+
+    if (!tweets) {
+      return res.status(404).json({
+        success: false,
+        message: "Tweets not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Tweets fetched successfully",
+      tweets,
+    });
+  } catch (error) {
+    console.error("Error fetching tweets:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
