@@ -12,7 +12,7 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     try {
-      const postsURL = "http://localhost:8000/v1/tweet/getTweets";
+      const postsURL = `${backend_url}/v1/tweet/getTweets`;
       const response = await fetch(postsURL, {
         method: "GET",
         headers: {
