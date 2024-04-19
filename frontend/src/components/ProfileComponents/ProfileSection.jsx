@@ -8,8 +8,11 @@ import ProfileCover from "./Components/ProfileCover";
 import ProfileInfo from "./Components/ProfileInfo";
 
 import PostCard from "../Postcard/PostCard";
+import Loading from "../../Loading/Loading";
+
 
 const ProfileSection = ({ user }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const { user: currentUser } = useContext(authContext);
   const [isFollowed, setIsFollowed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -35,9 +38,12 @@ const ProfileSection = ({ user }) => {
         .then((response) => {
           console.log(response.data);
           setUserTweets(response.data.tweets);
+          setIsLoading(false);
         });
     } catch (error) {
-      console.log("Error", error)
+      setIsLoading(false);
+
+      console.log("Error", error);
     }
   };
 
@@ -85,7 +91,7 @@ const ProfileSection = ({ user }) => {
       );
       console.log(response.data);
       setIsFollowed(false);
-      setFollowersCount((prevCount) => prevCount - 1); // Decrement followers count
+      setFollowersCount((prevCount) => prevCount - 1);
     } catch (error) {
       console.error("Failed to unfollow user:", error);
     }
@@ -140,7 +146,9 @@ const ProfileSection = ({ user }) => {
       />
 
       <div>
-        {userTweets.length === 0 ? (
+        {isLoading ? (
+          <Loading />
+        ) : userTweets.length === 0 ? (
           <p className="text-textLight dark:text-textDark text-[16px] px-5">
             No tweets found for {user?.name}
           </p>

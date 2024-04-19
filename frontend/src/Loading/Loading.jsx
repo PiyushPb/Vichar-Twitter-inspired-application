@@ -1,9 +1,9 @@
-import { PropagateLoader } from "react-spinners";
+import { HashLoader } from "react-spinners";
 
 const Loading = () => {
   return (
     <div className="flex items-center justify-center w-full h-full">
-      <PropagateLoader color="#0067ff" size={10} />
+      <HashLoader color="#3DADF2" size={50} />
     </div>
   );
 };
