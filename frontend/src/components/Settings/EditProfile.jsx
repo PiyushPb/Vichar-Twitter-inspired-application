@@ -3,15 +3,18 @@ import { TbCameraPlus } from "react-icons/tb";
 import { Button } from "@material-tailwind/react";
 import { backend_url } from "../../config/config";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { authContext } from "../../Context/AuthContext";
 
 const EditProfile = () => {
   const { user: currentUser } = useContext(authContext);
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     name: currentUser?.name,
-    email: "piyushp0512@gmail.com",
+    email: currentUser?.email,
     bio: currentUser?.bio,
     username: currentUser?.username,
     website: currentUser?.website,
@@ -53,7 +56,15 @@ const EditProfile = () => {
           },
         }
       );
-      console.log(response.data);
+
+      if (response.data.success === true) {
+        toast.success("Profile updated successfully");
+        navigate(`/${user.username}`);
+      } else {
+        toast.error(response.message);
+        console.error("Error updating profile:", response.message);
+        navigate(`/${user.username}`);
+      }
     } catch (error) {
       console.error("Error updating profile:", error);
     }
