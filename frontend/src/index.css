@@ -10,4 +10,12 @@
   .follow-btn {
     @apply text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:border-primaryBlue hover:text-primaryBlue dark:hover:text-primaryBlue transition duration-200 ease-in-out cursor-pointer mt-5;
   }
+
+  /* .handleThemeChangeInput {
+    @apply ;
+  }
+
+  .setThemeText {
+    @apply ;
+  } */
 }
