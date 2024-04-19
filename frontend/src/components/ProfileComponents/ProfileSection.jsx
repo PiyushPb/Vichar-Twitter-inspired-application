@@ -36,7 +36,9 @@ const ProfileSection = ({ user }) => {
           console.log(response.data);
           setUserTweets(response.data.tweets);
         });
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error", error)
+    }
   };
 
   useEffect(() => {
