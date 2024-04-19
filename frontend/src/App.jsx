@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import { useTheme } from "./Provider/ThemeProvider";
+import { useTheme } from "./Provider/VicharThemeProvider";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -42,7 +42,7 @@ const Profile = () => {
   return (
     <div className="w-full relative">
       <div className="w-full h-screen bg-bgLight dark:bg-bgDark relative">
-        <ProfileHeader user={user.data} />
+        <ProfileHeader user={user.data} title={"Profile"} />
         {user.data ? <ProfileSection user={user.data} /> : <NoUserFound />}
       </div>
     </div>

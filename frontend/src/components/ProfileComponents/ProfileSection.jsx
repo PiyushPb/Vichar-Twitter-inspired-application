@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Context/AuthContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { backend_url, token } from "../../config/config";
 
 import ProfileCover from "./Components/ProfileCover";
@@ -104,9 +105,12 @@ const ProfileSection = ({ user }) => {
           />
         </div>
         {isCurrentUser ? (
-          <div className="text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:bg-primaryBlue hover:text-white transition duration-200 ease-in-out cursor-pointer mt-5">
+          <Link
+            to={"/settings"}
+            className="text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:bg-primaryBlue hover:text-white transition duration-200 ease-in-out cursor-pointer mt-5"
+          >
             Edit Profile
-          </div>
+          </Link>
         ) : (
           <div className="transition duration-200 ease-in-out">
             {isFollowed ? (

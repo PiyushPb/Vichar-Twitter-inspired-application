@@ -19,6 +19,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, sparse: true },
   phone: { type: String, unique: true, sparse: true },
   bio: { type: String },
+  location: { type: String },
+  website: { type: String },
   profilePic: {
     type: String,
     default:

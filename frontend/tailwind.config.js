@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+const withMT = require("@material-tailwind/react/utils/withMT");
 const colors = require("tailwindcss/colors");
 
-module.exports = {
+module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
@@ -15,27 +16,28 @@ module.exports = {
         ...colors,
         // light theme
         bgLight: "#F4F8FB",
-        primaryLight: "#303741ff",
-        white: "#FFFFFFff",
-        textLight: "#0A1321ff",
+        primaryLight: "#303741",
+        white: "#FFFFFF",
+        textLight: "#0A1321",
         inputColorLight: "#ebebeb",
-        lightHover: "#ebebebff",
+        lightHover: "#ebebeb",
 
         // dark theme
         bgDark: "#101010",
-        primaryDark: "#FFFFFFff",
-        textDark: "#FFFFFFff",
-        inputColorDark: "#1e1e1eff",
-        darkBorderColor: "#1e1e1eff",
-        darkHover: "#1e1e1eff",
-        baseDark: "#1b1919ff",
+        primaryDark: "#FFFFFF",
+        textDark: "#FFFFFF",
+        inputColorDark: "#1e1e1e",
+        darkBorderColor: "#1e1e1e",
+        darkHover: "#1e1e1e",
+        baseDark: "#1b1919",
+        darkInputBg: "#1b1b1b",
 
         // common
-        matteblack: "#14202eff",
-        richBlack: "#0A1321ff",
-        primaryBlue: "#3DADF2ff",
+        matteblack: "#14202e",
+        richBlack: "#0A1321",
+        primaryBlue: "#3DADF2",
       },
     },
   },
   plugins: [],
-};
+});
