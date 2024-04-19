@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import UserInformation from "./UserInformation";
 import PostContent from "./PostContent";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
+import { authContext } from "../../Context/AuthContext";
 
 const PostCard = ({ postIndex, postData, userData }) => {
+  const { user: currentUser } = useContext(authContext);
+
   const [toggleCardSettings, setToggleCardSettings] = useState(false);
 
   useEffect(() => {
@@ -110,7 +113,11 @@ const PostCard = ({ postIndex, postData, userData }) => {
           <PostContent content={postData.tweet} markTag={markTag} />
           {/* post image */}
           <PostImage images={postData.images} gridClassName={gridClassName} />
-          <PostActions />
+          <PostActions
+            actions={postData}
+            tweetId={postData._id}
+            userId={currentUser._id}
+          />
         </div>
       </div>
     </>

@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import axios from "axios";
 
+import { backend_url } from "../config/config";
+
 const initialState = {
   user: null,
   token: localStorage.getItem("token") || null,
@@ -53,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
     const fetchUserData = async () => {
       try {
         if (state.token) {
-          const UserURL = "http://localhost:8000/v1/user/currentUser";
+          const UserURL = `${backend_url}/v1/user/currentUser`;
           const response = await axios.get(UserURL, {
             headers: {
               Authorization: `Bearer ${state.token}`,

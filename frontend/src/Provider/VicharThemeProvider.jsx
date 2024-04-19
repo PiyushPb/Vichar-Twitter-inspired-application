@@ -2,11 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext();
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(getSystemTheme);
+export const VicharThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState(getInitialTheme);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+  const toggleTheme = (newTheme) => {
     localStorage.setItem("theme", newTheme);
     setTheme(newTheme);
   };
@@ -29,18 +28,22 @@ export const ThemeProvider = ({ children }) => {
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error("useTheme must be used within a VicharThemeProvider");
   }
   return context;
 };
 
-const getSystemTheme = () => {
+const getInitialTheme = () => {
   let theme = localStorage.getItem("theme");
 
-  if (!theme || (theme !== "light" && theme !== "dark")) {
-    theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+  if (
+    !theme ||
+    (theme !== "light" && theme !== "dark" && theme !== "systemDefault")
+  ) {
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    theme = prefersDarkMode ? "dark" : "light";
     localStorage.setItem("theme", theme);
   }
 

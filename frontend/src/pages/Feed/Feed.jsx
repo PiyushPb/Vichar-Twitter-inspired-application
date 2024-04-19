@@ -12,7 +12,7 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     try {
-      const postsURL = "http://localhost:8000/v1/tweet/getTweets";
+      const postsURL = `${backend_url}/v1/tweet/getTweets`;
       const response = await fetch(postsURL, {
         method: "GET",
         headers: {
@@ -52,14 +52,14 @@ const Feed = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, []);
 
   return (
     <div className="w-full relative">
       <FeedHeader />
-      <div className="w-full overflow-y-scroll pb-[220px] sm:pb-[20px] feedScroll">
+      {/* <div className="w-full overflow-y-scroll pb-[220px] sm:pb-[20px] feedScroll">
         {posts.map((post, index) => {
           return (
             <PostCard
@@ -70,7 +70,8 @@ const Feed = () => {
             />
           );
         })}
-      </div>
+      </div> */}
+      Feed not loading!
     </div>
   );
 };
