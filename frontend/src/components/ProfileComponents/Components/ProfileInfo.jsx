@@ -7,8 +7,9 @@ const ProfileInfo = ({ user, followersCount, followingCount }) => {
       <p className="text-textLight dark:text-textDark text-[18px] font-bold">
         {user?.name}
       </p>
-      <p className="text-textLight dark:text-textDark text-[14px] opacity-80">
+      <p className="text-textLight dark:text-textDark text-[14px] opacity-80 flex justify-start item-center gap-1 ">
         {user?.username}
+        {user?.isVerified && <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" className="w-[20px]" title="verified"/>}
       </p>
       <div className="mt-2 flex gap-2 justify-start items-center opacity-70">
         <IoCalendarNumberOutline

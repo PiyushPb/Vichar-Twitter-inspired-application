@@ -25,3 +25,8 @@ build
 *.njsproj
 *.sln
 *.sw?
+
+# Build directories and files
+build
+build-*
+dist

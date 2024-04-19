@@ -20,7 +20,6 @@ const CommentSchema = new mongoose.Schema({
   },
 });
 
-
 const TweetSchema = new mongoose.Schema({
   tweet: {
     type: String,

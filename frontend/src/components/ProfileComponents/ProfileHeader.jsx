@@ -2,7 +2,7 @@ import React from "react";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-const ProfileHeader = ({ user }) => {
+const ProfileHeader = ({ user, title }) => {
   return (
     <div className="w-full h-fit p-5 gap-5 justify-start items-center hidden sm:flex border-b-2 border-solid border-gray-300 dark:border-darkBorderColor">
       <Link to={"/"}>
@@ -24,7 +24,7 @@ const ProfileHeader = ({ user }) => {
         </div>
       ) : (
         <p className="text-textLight dark:text-textDark text-[18px] font-bold">
-          Profile
+          {title}
         </p>
       )}
     </div>

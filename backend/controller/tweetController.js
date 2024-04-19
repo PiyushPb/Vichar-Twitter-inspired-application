@@ -95,7 +95,6 @@ export const likeTweet = async (req, res) => {
       });
     }
 
-    // Check if the user has already liked the tweet
     const index = tweet.likes.users.findIndex((like) =>
       like.userId.equals(userId)
     );

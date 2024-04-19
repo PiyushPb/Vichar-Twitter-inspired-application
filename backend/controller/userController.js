@@ -67,7 +67,8 @@ export const getCurrentUser = async (req, res) => {
 
 export const updateUserProfile = async (req, res) => {
   const { id } = req.params;
-  const { username, name, email } = req.body;
+  const { username, name, email, bio, profilePic, location, website } =
+    req.body;
   try {
     const user = await User.findById(id);
 
@@ -97,7 +98,10 @@ export const updateUserProfile = async (req, res) => {
       username,
       name,
       email,
-      // Add other fields you want to update here
+      bio,
+      profilePic,
+      location,
+      website,
     };
 
     const updatedUser = await User.findByIdAndUpdate(id, updateFields, {

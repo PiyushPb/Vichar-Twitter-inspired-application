@@ -108,9 +108,9 @@ const Header = () => {
               <img src={vicharLogo} className="w-[30px] h-[30px]" />
             </div>
           </Link>
-          <div className="flex items-center justify-center">
+          <Link to={"/settings"} className="flex items-center justify-center">
             <img src={SettingIcon} alt="" className="w-[25px]" />
-          </div>
+          </Link>
         </div>
       </div>
     </header>
