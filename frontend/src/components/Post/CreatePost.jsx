@@ -3,6 +3,7 @@ import "./post.css";
 import CreatePostFooter from "./CreatePostFooter";
 import CreatePostImageContainer from "./CreatePostImageContainer";
 import { useCreatePostModel } from "../../Context/CreatePostModelContext";
+import { FaXmark } from "react-icons/fa6";
 
 const CreatePost = () => {
   const { showCreatePostModel, openCreatePostModel, closeCreatePostModel } =
@@ -38,11 +39,14 @@ const CreatePost = () => {
 
   return (
     <div
-      className={`w-full h-screen fixed z-10 bg-black backdrop-filter backdrop-blur-lg bg-opacity-60 ${
+      className={`w-full h-screen fixed !z-[100] bg-black backdrop-filter backdrop-blur-lg bg-opacity-60  ${
         showCreatePostModel ? "block" : "hidden"
       }`}
       onClick={() => closeCreatePostModel()}
     >
+      <div className="w-full bg-white dark:bg-bgDark h-[20px]">
+        <FaXmark className="w-[20px] h-[20px] text-textLight dark:text-textDark cursor-pointer" />
+      </div>
       <div className="w-full md:w-fit h-fit overflow-y-auto md:transform md:-translate-x-1/2 md:-translate-y-1/2 absolute md:top-1/2 md:left-1/2 flex flex-col items-center gap-3">
         {/* TODO: Add close button */}
         <p className="text-white hidden md:block">Create Post</p>
@@ -81,7 +85,7 @@ const CreatePost = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="pb-2 sm:pb-0">
             <CreatePostFooter setImages={setImages} vichar={vichar} />
           </div>
         </div>

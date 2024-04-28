@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { backend_url, token } from "../../config/config";
 
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+
 const SearchCard = ({ user }) => {
   const { user: currentUser } = useContext(authContext);
   const isCurrentUser = currentUser._id === user._id;
@@ -77,8 +79,27 @@ const SearchCard = ({ user }) => {
           />
         </div>
         <div className="flex flex-1 flex-col">
-          <h1 className="font-bold text-textLight dark:text-textDark ">
-            {user.username}
+          <h1 className="font-bold text-textLight dark:text-textDark flex gap-1 justify-start items-center">
+            <span
+              className={
+                user?.isVerified && user?.plan === "premiumPlus"
+                  ? "text-[#ffc936] dark:text-[#FFD700]"
+                  : null
+              }
+            >
+              {user?.username}
+            </span>
+            {user?.isVerified && user?.plan && (
+              <RiVerifiedBadgeFill
+                size={18}
+                className={
+                  user?.plan === "basic"
+                    ? "text-primaryBlue"
+                    : "text-[#ffc936] dark:text-[#FFD700]"
+                }
+                title={user?.plan}
+              />
+            )}
           </h1>
           <h1 className="text-textLight dark:text-textDark text-[14px]">
             {user.name}

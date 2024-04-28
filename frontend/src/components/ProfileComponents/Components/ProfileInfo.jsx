@@ -9,12 +9,24 @@ const ProfileInfo = ({ user, followersCount, followingCount }) => {
         {user?.name}
       </p>
       <p className="text-textLight dark:text-textDark text-[14px] opacity-80 flex justify-start items-center gap-1 ">
-        <p>@{user?.username}</p>
-        {user?.isVerified && (
+        <p
+          className={
+            user?.isVerified && user?.plan === "premiumPlus"
+              ? "text-[#ffbf36] font-bold dark:text-[#FFD700]"
+              : null
+          }
+        >
+          @{user?.username}
+        </p>
+        {user?.isVerified && user?.plan && (
           <RiVerifiedBadgeFill
             size={18}
-            className="text-primaryBlue"
-            title="verified"
+            className={
+              user?.plan === "basic"
+                ? "text-primaryBlue"
+                : "text-[#ffc936] dark:text-[#FFD700]"
+            }
+            title={user?.plan}
           />
         )}
       </p>
