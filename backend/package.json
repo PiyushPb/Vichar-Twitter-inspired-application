@@ -32,7 +32,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.2.0",
-    "mongoose-hidden": "^1.9.1"
+    "mongoose-hidden": "^1.9.1",
+    "openai": "^4.38.3",
+    "openapi": "^1.0.1",
+    "stripe": "^15.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
