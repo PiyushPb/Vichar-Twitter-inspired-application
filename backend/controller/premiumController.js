@@ -4,7 +4,7 @@ import OpenAI from "openai";
 
 const openai = new OpenAI({
   // TODO enter api key here
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: "",
 });
 
 export const generateImage = async (req, res) => {

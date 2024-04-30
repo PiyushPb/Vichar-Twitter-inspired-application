@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const generatePremiumToken = (user, selectedPlan) => {
   return jwt.sign({ id: user._id, plan: selectedPlan }, process.env.JWT_TOKEN, {
-    expiresIn: "30d",
+    expiresIn: 15,
   });
 };
 
