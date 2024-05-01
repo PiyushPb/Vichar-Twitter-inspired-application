@@ -35,6 +35,10 @@ const TweetSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  isPremium: {
+    type: Boolean,
+    default: false,
+  },
   likes: {
     count: {
       type: Number,

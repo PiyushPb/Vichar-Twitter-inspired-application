@@ -37,6 +37,7 @@ const UserSchema = new mongoose.Schema({
   following: [{ type: ObjectId, ref: "User" }],
   followers: [{ type: ObjectId, ref: "User" }],
   tweets: [{ type: ObjectId, ref: "Tweet" }],
+  news: [{ type: ObjectId, ref: "News" }],
 });
 
 export default mongoose.model("User", UserSchema);

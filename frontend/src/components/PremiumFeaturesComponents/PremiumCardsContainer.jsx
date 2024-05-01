@@ -9,6 +9,7 @@ const PremiumCardsContainer = () => {
       {premiumFeaturesSchema.map((item) => (
         <div className="mt-5 w-full" key={item.id}>
           <PremiumFeatureCard
+            path={item.path}
             title={item.title}
             description={item.description}
             premiumAccess={item.premiumAccess}
