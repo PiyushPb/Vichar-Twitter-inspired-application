@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Header/Navbar";
 import TrendingSection from "../../components/TrendingSection";
@@ -7,6 +7,9 @@ import Profile from "../profile/Profile";
 import { Outlet } from "react-router-dom";
 
 const HomePage = () => {
+  useEffect(() => {
+    document.title = "Home | Vichar";
+  }, []);
   const [currentPage, setCurrentPage] = useState("Feed");
   return (
     <div className="bg-bgLight dark:bg-bgDark">

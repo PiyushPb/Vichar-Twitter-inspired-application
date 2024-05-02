@@ -18,6 +18,14 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sentimentScore: {
+    type: Number,
+    required: true,
+  },
+  commentedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const TweetSchema = new mongoose.Schema({
@@ -35,6 +43,10 @@ const TweetSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  isPremium: {
+    type: Boolean,
+    default: false,
+  },
   likes: {
     count: {
       type: Number,
@@ -43,6 +55,10 @@ const TweetSchema = new mongoose.Schema({
     users: [LikeSchema],
   },
   comments: [CommentSchema],
+  commentsCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export default mongoose.model("Tweet", TweetSchema);

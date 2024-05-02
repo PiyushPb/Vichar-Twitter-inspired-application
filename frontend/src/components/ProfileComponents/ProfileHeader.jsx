@@ -19,7 +19,7 @@ const ProfileHeader = ({ user, title }) => {
           </p>
           <p className="text-textLight dark:text-textDark text-[14px]">
             {/* TODO : add the number of followers dynamically */}
-            1.5k Followers
+            {user.followers.length} Followers
           </p>
         </div>
       ) : (

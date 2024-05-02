@@ -5,6 +5,7 @@ import PostCard from "../../components/Postcard/PostCard";
 
 import { backend_url } from "../../config/config";
 import { authContext } from "../../Context/AuthContext";
+import NewsFeed from "./NewsFeed";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -71,7 +72,7 @@ const Feed = () => {
           );
         })}
       </div> */}
-      Feed not loading!
+      <NewsFeed />
     </div>
   );
 };

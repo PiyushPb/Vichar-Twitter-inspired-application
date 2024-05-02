@@ -7,6 +7,7 @@ import { BiComment } from "react-icons/bi";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { AiOutlineBarChart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const PostActions = ({ actions, tweetId, userId }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -50,10 +51,13 @@ const PostActions = ({ actions, tweetId, userId }) => {
 
   return (
     <div className="flex justify-between items-center gap-5 mt-5">
-      <div className="flex items-center gap-2 text-textLight dark:text-textDark cursor-pointer hover:text-primaryBlue dark:hover:text-primaryBlue transition duration-200 ease-in-out">
+      <Link
+        to={`/vichar/${tweetId}`}
+        className="flex items-center gap-2 text-textLight dark:text-textDark cursor-pointer hover:text-primaryBlue dark:hover:text-primaryBlue transition duration-200 ease-in-out"
+      >
         <BiComment size={20} />
         <p className="text-[14px]">2.5k</p>
-      </div>
+      </Link>
       <div className="flex items-center gap-2 text-textLight dark:text-textDark cursor-pointer hover:text-green-400 dark:hover:text-green-400 transition duration-200 ease-in-out">
         <AiOutlineRetweet size={20} />
         <p className="text-[14px]">2.5k</p>

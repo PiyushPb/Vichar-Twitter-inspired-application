@@ -10,9 +10,7 @@ const FeedHeader = () => {
           </span>
         </div>
         <div className="h-[60px] w-full flex justify-center items-center hover:bg-lightHover dark:hover:bg-darkHover transition ease-in-out duration-300 cursor-pointer text-textLight dark:text-textDark">
-          <span className="h-full flex justify-center items-center">
-            Following
-          </span>
+          <span className="h-full flex justify-center items-center">News</span>
         </div>
       </div>
     </div>
