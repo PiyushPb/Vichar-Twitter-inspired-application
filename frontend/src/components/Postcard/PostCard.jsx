@@ -84,6 +84,8 @@ const PostCard = ({ postIndex, postData, userData }) => {
             <div className="flex flex-row justify-between items-center w-full font-montserrat">
               <UserInformation
                 username={userData.name}
+                isVerified={userData.isVerified}
+                plan={userData.plan}
                 handle={userData.username}
               />
               <div className="flex items-center justify-center sm:justify-center md:justify-start relative">
@@ -110,7 +112,11 @@ const PostCard = ({ postIndex, postData, userData }) => {
             </div>
           </div>
           {/* post content */}
-          <PostContent content={postData.tweet} markTag={markTag} />
+          <PostContent
+            content={postData.tweet}
+            markTag={markTag}
+            isPremium={postData.isPremium}
+          />
           {/* post image */}
           <PostImage images={postData.images} gridClassName={gridClassName} />
           <PostActions
