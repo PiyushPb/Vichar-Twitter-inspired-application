@@ -5,8 +5,10 @@ import PostContent from "./PostContent";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
 import { authContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const PostCard = ({ postIndex, postData, userData }) => {
+  const navigate = useNavigate();
   const { user: currentUser } = useContext(authContext);
 
   const [toggleCardSettings, setToggleCardSettings] = useState(false);

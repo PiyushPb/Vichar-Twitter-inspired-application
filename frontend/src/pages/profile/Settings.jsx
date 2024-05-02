@@ -6,9 +6,18 @@ import { backend_url } from "../../config/config";
 import axios from "axios";
 import EditProfile from "../../components/Settings/EditProfile";
 import ThemeChanger from "../../components/Settings/ThemeChanger";
+import { toast } from "react-toastify";
 
 const Settings = () => {
   const { user: currentUser } = useContext(authContext);
+
+  const handleLogoutClick = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success("Logged out successfully");
+    window.location.reload();
+  };
 
   return (
     <div className="w-full relative">
@@ -19,6 +28,12 @@ const Settings = () => {
           <EditProfile />
           {/* Set theme */}
           <ThemeChanger />
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-fit mt-5"
+            onClick={handleLogoutClick}
+          >
+            Logout
+          </button>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import Premium from "../pages/Premium/Premium";
 import PremiumFeatures from "../pages/Premium/PremiumFeatures";
 import NewsSummerization from "../pages/Premium/NewsSummerization";
 import ImageGenration from "../pages/Premium/ImageGenration";
+import VicharContainer from "../pages/Vichar/VicharContainer";
 
 const Routers = () => {
   return (
@@ -23,6 +24,7 @@ const Routers = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/newsSummerization" element={<NewsSummerization />} />
         <Route path="/imageGenration" element={<ImageGenration />} />
+        <Route path="/vichar/:tweetId" element={<VicharContainer />} />
         <Route path="/:username" element={<Profile />} />
       </Route>
       <Route path="/login" element={<Login />} />
