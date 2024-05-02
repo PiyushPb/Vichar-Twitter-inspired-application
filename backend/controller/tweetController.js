@@ -1,5 +1,6 @@
 import Tweet from "../models/TweetsSchema.js";
 import User from "../models/UserSchema.js";
+import News from "../models/NewsSchema.js";
 import fetch from "node-fetch";
 
 export const createTweet = async (req, res) => {
@@ -64,6 +65,24 @@ export const getTweets = async (req, res) => {
       success: true,
       message: "Tweets fetched successfully",
       tweets,
+    });
+  } catch (error) {
+    console.error("Error fetching tweets:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const getNews = async (req, res) => {
+  try {
+    const news = await News.find().sort({ createdAt: -1 });
+    return res.status(200).json({
+      success: true,
+      message: "News fetched successfully",
+      news,
     });
   } catch (error) {
     console.error("Error fetching tweets:", error);
@@ -154,6 +173,101 @@ export const getUsersTweet = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching tweets:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const bookmarkTweet = async (req, res) => {
+  try {
+    const { tweetId } = req.body;
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const tweet = await Tweet.findById(tweetId);
+
+    if (!tweet) {
+      return res.status(404).json({
+        success: false,
+        message: "Tweet not found",
+      });
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const bookmarkIndex = user.bookmarks.indexOf(tweetId);
+
+    if (bookmarkIndex !== -1) {
+      // If the tweet is already bookmarked by the user, remove it
+      user.bookmarks.splice(bookmarkIndex, 1);
+    } else {
+      // If the tweet is not bookmarked by the user, add it
+      user.bookmarks.push(tweetId);
+    }
+
+    await user.save();
+
+    // Fetch updated tweet after bookmark operation
+    const updatedTweet = await Tweet.findById(tweetId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Tweet bookmarked / removed bookmark successfully",
+      tweet: updatedTweet,
+    });
+  } catch (error) {
+    console.error("Error bookmarking / removing bookmark from tweet:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const getUsersNews = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const news = await News.find({ userId }).sort({ createdAt: -1 });
+
+    if (!news) {
+      return res.status(404).json({
+        success: false,
+        message: "news not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "news fetched successfully",
+      news,
+    });
+  } catch (error) {
+    console.error("Error fetching news:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -278,6 +392,43 @@ export const addComment = async (req, res) => {
     }
   } catch (error) {
     console.error("Error adding comment:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const getBookmarkedTweets = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const bookmarkedTweets = await Tweet.find({ _id: { $in: user.bookmarks } });
+
+    return res.status(200).json({
+      success: true,
+      message: "Bookmarked tweets fetched successfully",
+      tweets: bookmarkedTweets,
+    });
+  } catch (error) {
+    console.error("Error fetching bookmarked tweets:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",

@@ -129,25 +129,31 @@ const VicharContainer = () => {
         </div>
         {/* ====================== */}
         {/* ====================== */}
-        {comments.map((comment, index) => (
-          <div
-            className="w-full border-b-2 border-solid border-gray-300 p-5 relative"
-            key={index}
-          >
-            {isCommentHidden.includes(index) && (
-              <div
-                className="absolute top-0 left-0 h-full w-full bg-black/40 backdrop-blur-[3px] flex justify-center items-center cursor-pointer"
-                onClick={() => handleOverlayClick(index)}
-              >
-                <p className="text-white text-center p-4 text-[12px] cursor-pointer">
-                  This comment has been flagged as inappropriate, if you wish to
-                  see it please click here
-                </p>
-              </div>
-            )}
-            <CommentCard commentData={comment} user={userData} />
-          </div>
-        ))}
+        {comments && comments.length > 0 ? (
+          comments.map((comment, index) => (
+            <div
+              className="w-full border-b-2 border-solid border-gray-300 p-5 relative"
+              key={index}
+            >
+              {isCommentHidden.includes(index) && (
+                <div
+                  className="absolute top-0 left-0 h-full w-full bg-black/40 backdrop-blur-[3px] flex justify-center items-center cursor-pointer"
+                  onClick={() => handleOverlayClick(index)}
+                >
+                  <p className="text-white text-center p-4 text-[12px] cursor-pointer">
+                    This comment has been flagged as inappropriate, if you wish
+                    to see it please click here
+                  </p>
+                </div>
+              )}
+              <CommentCard commentData={comment} user={userData} />
+            </div>
+          ))
+        ) : (
+          <p className="text-textLight dark:text-textDark text-[14px] max-w-[600px] mx-auto mt-5">
+            No comments yet... Be the first to comment!!
+          </p>
+        )}
         {/* ====================== */}
       </div>
     </div>

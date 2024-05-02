@@ -27,7 +27,9 @@ export const getSingleUserUsingUID = async (req, res) => {
 
   try {
     // Assuming uid is the same as MongoDB _id
-    const user = await User.findById(uid).select("name profilePic username");
+    const user = await User.findById(uid).select(
+      "name profilePic username isVerified plan"
+    );
 
     if (!user) {
       return res.status(404).json({ success: false, message: "No user found" });
@@ -67,8 +69,16 @@ export const getCurrentUser = async (req, res) => {
 
 export const updateUserProfile = async (req, res) => {
   const { id } = req.params;
-  const { username, name, email, bio, profilePic, location, website, coverPhoto } =
-    req.body;
+  const {
+    username,
+    name,
+    email,
+    bio,
+    profilePic,
+    location,
+    website,
+    coverPhoto,
+  } = req.body;
   try {
     const user = await User.findById(id);
 
@@ -102,7 +112,7 @@ export const updateUserProfile = async (req, res) => {
       profilePic,
       location,
       website,
-      coverPhoto
+      coverPhoto,
     };
 
     const updatedUser = await User.findByIdAndUpdate(id, updateFields, {

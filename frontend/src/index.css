@@ -11,6 +11,14 @@
     @apply text-textLight dark:text-textDark py-2.5 px-4 border-2 rounded-full hover:border-primaryBlue hover:text-primaryBlue dark:hover:text-primaryBlue transition duration-200 ease-in-out cursor-pointer mt-5;
   }
 
+  .activeFeedBtn {
+    @apply border-b-2 p-2 border-b-blue-500  h-full flex justify-center items-center text-textLight dark:text-textDark;
+  }
+
+  .inactiveFeedBtn {
+    @apply h-full flex justify-center items-center;
+  }
+
   /* .handleThemeChangeInput {
     @apply ;
   }

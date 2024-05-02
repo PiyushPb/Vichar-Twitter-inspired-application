@@ -29,12 +29,12 @@ const headerData = [
     path: "/premium",
     icon: "PremiumIcon",
   },
-  {
-    id: 6,
-    title: "Get Verified",
-    path: "/get-verified",
-    icon: "HomeIcon",
-  },
+  // {
+  //   id: 6,
+  //   title: "Get Verified",
+  //   path: "/get-verified",
+  //   icon: "HomeIcon",
+  // },
 ];
 
 export default headerData;

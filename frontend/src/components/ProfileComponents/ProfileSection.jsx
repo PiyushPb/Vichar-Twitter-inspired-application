@@ -7,9 +7,8 @@ import { backend_url, token } from "../../config/config";
 import ProfileCover from "./Components/ProfileCover";
 import ProfileInfo from "./Components/ProfileInfo";
 
-import PostCard from "../Postcard/PostCard";
-import Loading from "../../Loading/Loading";
-
+import ProfileFeed from "../ProfileFeed/ProfileFeed";
+import NewsFeed from "../ProfileFeed/NewsFeed";
 
 const ProfileSection = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,37 +18,13 @@ const ProfileSection = ({ user }) => {
   const [followersCount, setFollowersCount] = useState(user?.followers.length);
   const [followingCount, setFollowingCount] = useState(user?.following.length);
 
-  const [userTweets, setUserTweets] = useState([]);
+  const [feedLoaded, setFeedLoaded] = useState("following");
 
   const isCurrentUser = currentUser._id === user._id;
 
   useEffect(() => {
     setIsFollowed(currentUser.following.includes(user._id));
   }, [currentUser.following, user._id]);
-
-  const getUserTweets = async () => {
-    try {
-      axios
-        .get(`${backend_url}/v1/tweet/getUserTweets/${user._id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-          setUserTweets(response.data.tweets);
-          setIsLoading(false);
-        });
-    } catch (error) {
-      setIsLoading(false);
-
-      console.log("Error", error);
-    }
-  };
-
-  useEffect(() => {
-    getUserTweets();
-  }, [user._id]);
 
   const handleFollow = async () => {
     if (isCurrentUser) {
@@ -145,24 +120,38 @@ const ProfileSection = ({ user }) => {
         followingCount={followingCount}
       />
 
-      <div>
-        {isLoading ? (
-          <Loading />
-        ) : userTweets.length === 0 ? (
-          <p className="text-textLight dark:text-textDark text-[16px] px-5">
-            No tweets found for {user?.name}
-          </p>
-        ) : (
-          userTweets.map((tweet, index) => (
-            <PostCard
-              key={index}
-              postIndex={index + 1}
-              postData={tweet}
-              userData={user}
-            />
-          ))
-        )}
+      <div className="flex w-full bg-bgLight dark:bg-bgDark max-w-700 justify-between border-b-2 border-solid border-gray-300 dark:border-darkBorderColor sticky top-[0px] z-[50]">
+        <div
+          className="h-[60px] w-full flex justify-center items-center hover:bg-lightHover dark:hover:bg-darkHover transition ease-in-out duration-300 cursor-pointer"
+          onClick={() => setFeedLoaded("following")}
+        >
+          <span
+            className={`${
+              feedLoaded === "following" ? "activeFeedBtn" : "inactiveFeedBtn"
+            }`}
+          >
+            For you
+          </span>
+        </div>
+        <div
+          className="h-[60px] w-full flex justify-center items-center hover:bg-lightHover dark:hover:bg-darkHover transition ease-in-out duration-300 cursor-pointer text-textLight dark:text-textDark "
+          onClick={() => setFeedLoaded("news")}
+        >
+          <span
+            className={`${
+              feedLoaded === "news" ? "activeFeedBtn" : "inactiveFeedBtn"
+            }`}
+          >
+            News
+          </span>
+        </div>
       </div>
+
+      {feedLoaded === "following" ? (
+        <ProfileFeed userId={user._id} username={user.name} userData={user} />
+      ) : (
+        <NewsFeed userId={user._id} username={user.name} userData={user} />
+      )}
     </div>
   );
 };

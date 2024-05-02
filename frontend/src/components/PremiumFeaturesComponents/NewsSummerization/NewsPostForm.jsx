@@ -4,7 +4,7 @@ import axios from "axios";
 import { backend_url } from "../../../config/config";
 import { toast } from "react-toastify";
 
-const NewsPostForm = ({ newsData, setNewsData }) => {
+const NewsPostForm = ({ newsData, setNewsData, artileURL }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState(newsData.title);
   const [summary, setSummary] = useState(newsData.summary);
@@ -19,6 +19,7 @@ const NewsPostForm = ({ newsData, setNewsData }) => {
           polarity: newsData.polarity,
           articlePublishDate: newsData.publish_date,
           sentiment: newsData.sentiment,
+          artileURL: artileURL,
         },
         {
           headers: {
