@@ -5,6 +5,7 @@ export const premiumFeaturesSchema = [
     description:
       "Get access to our news summarization service. Post a news article link and let the ai handle the magic ✨ for you.",
     premiumAccess: ["premium", "premiumPlus"],
+    path: "/newsSummerization",
   },
   {
     id: 2,
@@ -12,5 +13,6 @@ export const premiumFeaturesSchema = [
     description:
       "Get access to our image genration service. Post a prompt and let the ai handle the magic ✨ for you.",
     premiumAccess: ["premiumPlus"],
+    path: "/imageGenration",
   },
 ];

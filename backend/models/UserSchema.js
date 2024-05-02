@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema({
     default:
       "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg",
   },
+  coverPhoto: {
+    type: String,
+    default: "https://source.unsplash.com/random",
+  },
   gender: { type: String },
   dob: { type: Date },
   isVerified: { type: Boolean, default: false },
@@ -37,6 +41,7 @@ const UserSchema = new mongoose.Schema({
   following: [{ type: ObjectId, ref: "User" }],
   followers: [{ type: ObjectId, ref: "User" }],
   tweets: [{ type: ObjectId, ref: "Tweet" }],
+  news: [{ type: ObjectId, ref: "News" }],
 });
 
 export default mongoose.model("User", UserSchema);

@@ -9,6 +9,8 @@ import Search from "../pages/Search/Search";
 import Settings from "../pages/profile/Settings";
 import Premium from "../pages/Premium/Premium";
 import PremiumFeatures from "../pages/Premium/PremiumFeatures";
+import NewsSummerization from "../pages/Premium/NewsSummerization";
+import ImageGenration from "../pages/Premium/ImageGenration";
 
 const Routers = () => {
   return (
@@ -19,6 +21,8 @@ const Routers = () => {
         <Route path="/search" element={<Search />} />
         <Route path="/premium" element={<PremiumFeatures />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/newsSummerization" element={<NewsSummerization />} />
+        <Route path="/imageGenration" element={<ImageGenration />} />
         <Route path="/:username" element={<Profile />} />
       </Route>
       <Route path="/login" element={<Login />} />

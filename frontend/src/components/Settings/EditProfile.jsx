@@ -7,10 +7,14 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 import { authContext } from "../../Context/AuthContext";
+import uploadImageToCloudinary from "../../Utils/uploadCloudinary";
 
 const EditProfile = () => {
   const { user: currentUser } = useContext(authContext);
   const navigate = useNavigate();
+
+  const [profileImage, setProfileImage] = useState(currentUser?.profilePic);
+  const [coverImage, setCoverImage] = useState(currentUser?.coverPhoto);
 
   const [user, setUser] = useState({
     name: currentUser?.name,
@@ -20,7 +24,26 @@ const EditProfile = () => {
     website: currentUser?.website,
     location: currentUser?.location,
     profilePic: currentUser?.profilePic,
+    coverPhoto: currentUser?.coverPhoto,
   });
+
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setProfileImage(reader.result);
+    };
+  };
+
+  const handleCoverImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setCoverImage(reader.result);
+    };
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +59,8 @@ const EditProfile = () => {
       }
     };
 
+    console.log(user);
+
     fetchData();
   }, []);
 
@@ -45,7 +70,31 @@ const EditProfile = () => {
   };
 
   const updateProfile = async () => {
-    console.log(user);
+    // Upload profile picture to Cloudinary if it's updated
+    if (profileImage !== currentUser.profilePic) {
+      try {
+        const imageData = await uploadImageToCloudinary(profileImage);
+
+        const profileURL = await imageData.url;
+        console.log(profileURL);
+        setUser({ ...user, profilePic: profileURL });
+      } catch (error) {
+        console.error("Error uploading profile picture:", error);
+      }
+    }
+
+    if (coverImage !== currentUser.coverPhoto || coverImage === undefined) {
+      const coverImageData = await uploadImageToCloudinary(coverImage);
+      const coverPhotoURL = await coverImageData.url;
+      console.log(coverPhotoURL);
+      setUser((prevUser) => ({
+        ...prevUser,
+        coverPhoto: coverPhotoURL,
+      }));
+    }
+
+    // console.log(user);
+
     try {
       const response = await axios.patch(
         `${backend_url}/v1/user/updateUserProfile/${currentUser._id}`,
@@ -80,7 +129,7 @@ const EditProfile = () => {
         {/* coverPhoto */}
         <div className="w-full h-[140px] sm:h-[200px] overflow-hidden block relative">
           <img
-            src="https://source.unsplash.com/random"
+            src={coverImage}
             alt="..."
             className="object-center w-full h-full object-cover"
           />
@@ -91,13 +140,19 @@ const EditProfile = () => {
             >
               <TbCameraPlus size={70} className="m-3 text-white" />
             </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleCoverImageChange}
+              className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+            />
           </div>
         </div>
         {/* profile pic */}
         <div className="flex items-center justify-between w-full h-fit px-5 relative">
           <div className="mt-[-60px] sm:mt-[-70px] relative">
             <img
-              src={user?.profilePic}
+              src={profileImage}
               alt="Profile"
               className="w-[120px] sm:w-[150px] h-[120px] sm:h-[150px] object-cover rounded-full border-2 border-solid border-textLight dark:border-textDark"
             />
@@ -108,6 +163,12 @@ const EditProfile = () => {
               >
                 <TbCameraPlus size={70} className="m-3 text-white" />
               </div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfileImageChange}
+                className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+              />
             </div>
           </div>
         </div>
