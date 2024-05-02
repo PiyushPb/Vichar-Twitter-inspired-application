@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { premiumFeaturesSchema } from "./PremiumFeaturesSchema";
 import PremiumFeatureCard from "./PremiumFeatureCard";
+import { authContext } from "../../Context/AuthContext";
 
 const PremiumCardsContainer = () => {
+  const { user } = useContext(authContext);
+  console.log(user);
   return (
     <div className="w-full max-w-[700px] mx-auto">
       {premiumFeaturesSchema.map((item) => (
@@ -13,6 +16,7 @@ const PremiumCardsContainer = () => {
             title={item.title}
             description={item.description}
             premiumAccess={item.premiumAccess}
+            userPremiumStatus={user.plan}
           />
         </div>
       ))}
