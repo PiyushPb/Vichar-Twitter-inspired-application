@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoCalendarNumberOutline } from "react-icons/io5";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 const ProfileInfo = ({ user, followersCount, followingCount }) => {
   return (
@@ -7,9 +8,27 @@ const ProfileInfo = ({ user, followersCount, followingCount }) => {
       <p className="text-textLight dark:text-textDark text-[18px] font-bold">
         {user?.name}
       </p>
-      <p className="text-textLight dark:text-textDark text-[14px] opacity-80 flex justify-start item-center gap-1 ">
-        {user?.username}
-        {user?.isVerified && <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" className="w-[20px]" title="verified"/>}
+      <p className="text-textLight dark:text-textDark text-[14px] opacity-80 flex justify-start items-center gap-1 ">
+        <p
+          className={
+            user?.isVerified && user?.plan === "premiumPlus"
+              ? "text-[#ffbf36] font-bold dark:text-[#FFD700]"
+              : null
+          }
+        >
+          @{user?.username}
+        </p>
+        {user?.isVerified && user?.plan && (
+          <RiVerifiedBadgeFill
+            size={18}
+            className={
+              user?.plan === "basic"
+                ? "text-primaryBlue"
+                : "text-[#ffc936] dark:text-[#FFD700]"
+            }
+            title={user?.plan}
+          />
+        )}
       </p>
       <div className="mt-2 flex gap-2 justify-start items-center opacity-70">
         <IoCalendarNumberOutline

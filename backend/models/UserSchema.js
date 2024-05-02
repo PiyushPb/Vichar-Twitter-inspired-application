@@ -26,20 +26,22 @@ const UserSchema = new mongoose.Schema({
     default:
       "https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg",
   },
+  coverPhoto: {
+    type: String,
+    default: "https://source.unsplash.com/random",
+  },
   gender: { type: String },
-  location: { type: String },
   dob: { type: Date },
   isVerified: { type: Boolean, default: false },
+  plan: { type: String },
+  premiumToken: { type: String },
   isReported: { type: Boolean, default: false },
   isBanned: { type: Boolean, default: false },
-  tokens: [
-    {
-      opt: { type: Number },
-    },
-  ],
+  tokens: [{ opt: { type: Number } }],
   following: [{ type: ObjectId, ref: "User" }],
   followers: [{ type: ObjectId, ref: "User" }],
   tweets: [{ type: ObjectId, ref: "Tweet" }],
+  news: [{ type: ObjectId, ref: "News" }],
 });
 
 export default mongoose.model("User", UserSchema);

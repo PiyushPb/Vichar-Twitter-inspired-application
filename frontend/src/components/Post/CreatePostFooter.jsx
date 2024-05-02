@@ -5,7 +5,7 @@ import { backend_url } from "../../config/config";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-const CreatePostFooter = ({ setImages, vichar }) => {
+const CreatePostFooter = ({ setImages, vichar, maxAllowedText }) => {
   const fileInputRef = useRef(null);
   const [selectedImagesCount, setSelectedImagesCount] = useState(0);
   const [loaderColor, setLoaderColor] = useState("#3dadf2");
@@ -16,14 +16,14 @@ const CreatePostFooter = ({ setImages, vichar }) => {
       setPercentage(0);
     }
 
-    if (vichar.length >= 101) {
+    if (vichar.length >= maxAllowedText) {
       setLoaderColor("#f54242");
     } else {
       setLoaderColor("#3dadf2");
     }
 
     if (vichar) {
-      const maxLength = 100;
+      const maxLength = maxAllowedText;
       const currentLength = vichar.length;
       const calculatedPercentage = (currentLength / maxLength) * 100;
       setPercentage(calculatedPercentage > 100 ? 100 : calculatedPercentage);

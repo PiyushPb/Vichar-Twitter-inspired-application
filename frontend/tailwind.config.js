@@ -15,7 +15,7 @@ module.exports = withMT({
       colors: {
         ...colors,
         // light theme
-        bgLight: "#F4F8FB",
+        bgLight: "#FFFFFF",
         primaryLight: "#303741",
         white: "#FFFFFF",
         textLight: "#0A1321",
