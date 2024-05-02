@@ -1,6 +1,8 @@
 import express from "express";
 import {
+  addComment,
   createTweet,
+  getSingleTweet,
   getTweets,
   getUsersTweet,
   likeTweet,
@@ -14,5 +16,7 @@ router.post("/createTweet", authenticate, createTweet);
 router.get("/getTweets", authenticate, getTweets);
 router.post("/likeTweet", authenticate, likeTweet);
 router.get("/getUserTweets/:userId", authenticate, getUsersTweet);
+router.get("/getTweet/:tweetId", authenticate, getSingleTweet);
+router.post("/addComment", authenticate, addComment);
 
 export default router;
