@@ -47,5 +47,9 @@ def analyze_url():
     }
     return response
 
+@app.route("/ping", methods=["GET"])
+def ping():
+    return "Server is up and running!"
+
 if __name__ == "__main__":
     app.run(port=5000, host="0.0.0.0")
