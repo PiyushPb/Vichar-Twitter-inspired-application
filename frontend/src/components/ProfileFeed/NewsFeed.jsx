@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import NewsCard from "../../components/NewsCard/NewsCard";
+import React, { useEffect, useState } from "react";
+import Loading from "../../Loading/Loading";
+import axios from "axios";
+import { backend_url, token } from "../../config/config";
+import NewsCard from "../NewsCard/NewsCard";
 
-import { backend_url } from "../../config/config";
-import { authContext } from "../../Context/AuthContext";
+const NewsFeed = ({ userId, username, userData }) => {
+  const [news, setNews] = useState([]);
 
-const NewsFeed = () => {
-  const { state } = useContext(authContext);
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchPosts = async () => {
+  const getUserNews = async () => {
     try {
-      const postsURL = `${backend_url}/v1/tweet/getNews`;
+      const postsURL = `${backend_url}/v1/tweet/getUsersNews/${userId}`;
       const response = await fetch(postsURL, {
         method: "GET",
         headers: {
@@ -24,7 +26,7 @@ const NewsFeed = () => {
       }
 
       const data = await response.json();
-      // Fetch user information for each post
+
       const postsWithUserInfo = await Promise.all(
         data.news.map(async (post) => {
           const userResponse = await fetch(
@@ -44,24 +46,29 @@ const NewsFeed = () => {
           return { ...post, user: userData };
         })
       );
-      setPosts(postsWithUserInfo);
+      setPost(postsWithUserInfo);
       console.log(postsWithUserInfo);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    getUserNews();
+  }, [userId]);
 
   return (
-    <div className="w-full overflow-y-scroll pb-[220px] sm:pb-[20px] feedScroll">
-      {/* ====================== */}
-      {posts.map((post) => (
-        <NewsCard key={post._id} post={post} />
-      ))}
-      {/* ====================== */}
+    <div>
+      {isLoading ? (
+        <Loading />
+      ) : post.length === 0 ? (
+        <p className="text-textLight dark:text-textDark text-[16px] px-5">
+          No news found for {username}
+        </p>
+      ) : (
+        post.reverse().map((post) => <NewsCard key={post._id} post={post} />)
+      )}
     </div>
   );
 };

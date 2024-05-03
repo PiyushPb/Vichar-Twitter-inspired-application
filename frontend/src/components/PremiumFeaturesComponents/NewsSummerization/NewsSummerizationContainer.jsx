@@ -27,7 +27,7 @@ const NewsSummerizationContainer = () => {
       setNewsData(response.data);
     } catch (error) {
       setIsLoading(false);
-      toast.error("Failed to summarize news article, Please try again later");
+      toast.error(error);
     }
   };
   return (
@@ -60,7 +60,11 @@ const NewsSummerizationContainer = () => {
       )}
       {/* =========================== */}
       {newsData && (
-        <NewsPostForm newsData={newsData} setNewsData={setNewsData} />
+        <NewsPostForm
+          newsData={newsData}
+          setNewsData={setNewsData}
+          artileURL={newsURL}
+        />
       )}
     </div>
   );

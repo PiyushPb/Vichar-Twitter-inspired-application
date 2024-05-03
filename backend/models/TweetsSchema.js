@@ -8,6 +8,14 @@ const LikeSchema = new mongoose.Schema({
   },
 });
 
+const BookmarkSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+});
+
 const CommentSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -53,6 +61,13 @@ const TweetSchema = new mongoose.Schema({
       default: 0,
     },
     users: [LikeSchema],
+  },
+  bookmarks: {
+    count: {
+      type: Number,
+      default: 0,
+    },
+    users: [BookmarkSchema],
   },
   comments: [CommentSchema],
   commentsCount: {
