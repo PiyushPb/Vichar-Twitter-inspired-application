@@ -6,7 +6,7 @@ import Tweet from "../models/TweetsSchema.js";
 // DALLE CONFIGRATION
 
 const openai = new OpenAI({
-  apiKey: "",
+  apiKey: process.env.DALLE_KEY,
 });
 
 export const generateImage = async (req, res) => {
