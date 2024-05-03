@@ -6,10 +6,12 @@ import {
   getBookmarkedTweets,
   getNews,
   getSingleTweet,
+  getTrends,
   getTweets,
   getUsersNews,
   getUsersTweet,
   likeTweet,
+  setTrending,
 } from "../controller/tweetController.js";
 
 import { authenticate } from "../auth/verifyToken.js";
@@ -26,5 +28,8 @@ router.get("/getUsersNews/:userId", authenticate, getUsersNews);
 router.get("/getTweet/:tweetId", authenticate, getSingleTweet);
 router.post("/addComment", authenticate, addComment);
 router.get("/getBookmarkTweets", authenticate, getBookmarkedTweets);
+//
+router.post("/setTrending", setTrending);
+router.get("/getTrending", getTrends);
 
 export default router;

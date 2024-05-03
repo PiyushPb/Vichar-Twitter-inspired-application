@@ -1,6 +1,7 @@
 import Tweet from "../models/TweetsSchema.js";
 import User from "../models/UserSchema.js";
 import News from "../models/NewsSchema.js";
+import Trend from "../models/TrendingSchema.js";
 import fetch from "node-fetch";
 
 export const createTweet = async (req, res) => {
@@ -429,6 +430,46 @@ export const getBookmarkedTweets = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching bookmarked tweets:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const setTrending = async (req, res) => {
+  const trend = req.body;
+
+  try {
+    const trends = await Trend.create(trend);
+
+    return res.status(200).json({
+      success: true,
+      message: "Trend added successfully",
+      trends: trends,
+    });
+  } catch (error) {
+    console.error("Error adding trend:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const getTrends = async (req, res) => {
+  try {
+    const trends = await Trend.find();
+
+    return res.status(200).json({
+      success: true,
+      message: "Trends fetched successfully",
+      trends: trends,
+    });
+  } catch (error) {
+    console.error("Error fetching trends:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",

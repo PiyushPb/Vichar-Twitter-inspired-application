@@ -14,6 +14,7 @@ import ImageGenration from "../pages/Premium/ImageGenration";
 import VicharContainer from "../pages/Vichar/VicharContainer";
 import Bookmarks from "../pages/Bookmarks/Bookmarks";
 import Notifications from "../pages/Notifications/Notifications";
+import SetTrend from "../pages/Bookmarks/SetTrend";
 
 const Routers = () => {
   return (
@@ -33,6 +34,7 @@ const Routers = () => {
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/setTrend" element={<SetTrend />} />
     </Routes>
   );
 };

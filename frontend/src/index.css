@@ -16,7 +16,7 @@
   }
 
   .inactiveFeedBtn {
-    @apply h-full flex justify-center items-center;
+    @apply h-full flex justify-center items-center text-textLight dark:text-textDark;
   }
 
   /* .handleThemeChangeInput {
