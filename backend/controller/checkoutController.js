@@ -29,7 +29,7 @@ export const createCheckoutSession = async (req, res) => {
     const planDetails = getPlanDetails(selectedPlan);
     // process.env.STRIPE_SECRET_KEY
     const stripeInstance = new stripe(
-      "sk_test_51P7jdsSAihlO7Il702vWdKOQ9OdQJVNjv53S2lUPoWXO8Q4b7Ebf54Xjk6gSCM8z3tu3ipPxSCxDiXRDdWHIevyE00Mk7qIgeq"
+      "sk_test_51P7bN1SE7cdsrCHa9Nrj4Lt0wPHTrqHqbTnXLXV1Zh1Ncn2j7yDsdvCtdoxERhmICtR4PP823klQbI54dgMS3Akf00P3AaNoIt"
     );
 
     const session = await stripeInstance.checkout.sessions.create({
@@ -85,7 +85,11 @@ export const createCheckoutSession = async (req, res) => {
       .json({ success: true, sessionId: session.url, user: updatedUser });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
   }
 };
 
