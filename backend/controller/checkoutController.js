@@ -30,8 +30,10 @@ export const createCheckoutSession = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
+    const userID = await user._id;
+
     const planDetails = getPlanDetails(selectedPlan);
-    // process.env.STRIPE_SECRET_KEY
+    // process.env.STRIPE_SECRET_KET
     const stripeInstance = new stripe(
       "sk_test_51P7bN1SE7cdsrCHa9Nrj4Lt0wPHTrqHqbTnXLXV1Zh1Ncn2j7yDsdvCtdoxERhmICtR4PP823klQbI54dgMS3Akf00P3AaNoIt"
     );
@@ -42,7 +44,7 @@ export const createCheckoutSession = async (req, res) => {
       success_url: `${process.env.CLIENT_SITE_URL}/success`,
       cancel_url: `${process.env.CLIENT_SITE_URL}/cancel`,
       customer_email: user.email,
-      client_reference_id: user._id,
+      client_reference_id: userID || "dohaioiagfiuygaifhaoihy",
       line_items: [
         {
           price_data: {
