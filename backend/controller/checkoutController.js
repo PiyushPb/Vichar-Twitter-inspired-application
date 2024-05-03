@@ -17,8 +17,12 @@ export const createCheckoutSession = async (req, res) => {
       .json({ success: false, message: "Missing required fields" });
   }
 
+  console.log(userId, selectedPlan);
+
   try {
     const user = await User.findById(userId);
+
+    console.log(user);
 
     if (!user) {
       return res
