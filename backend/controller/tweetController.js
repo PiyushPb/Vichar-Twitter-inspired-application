@@ -350,7 +350,7 @@ export const addComment = async (req, res) => {
     }
 
     const sentimentResponse = await fetch(
-      "http://localhost:5000/sentimentAnalysis",
+      "https://vicharmlmodels.onrender.com/sentimentAnalysis",
       {
         method: "POST",
         headers: {
