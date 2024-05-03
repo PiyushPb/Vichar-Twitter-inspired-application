@@ -45,7 +45,11 @@ const CreatePostFooter = ({ setImages, vichar, maxAllowedText }) => {
         body: JSON.stringify(vicharData),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data))
+        .then((data) => {
+          console.log(data);
+          toast.success("Vichar created successfully");
+          window.location.reload();
+        })
         .catch((error) => {
           console.log(error);
         });

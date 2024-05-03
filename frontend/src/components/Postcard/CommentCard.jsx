@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CommentCard = ({ commentData, user }) => {
-  console.log(commentData);
   return (
     <div className="w-full max-w-[600px] mx-auto">
       <p className="text-textLight dark:text-textDark mb-3">
