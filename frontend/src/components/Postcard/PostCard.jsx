@@ -125,6 +125,7 @@ const PostCard = ({ postIndex, postData, userData }) => {
             actions={postData}
             tweetId={postData._id}
             userId={currentUser._id}
+            commentsNumber={postData.commentsCount}
           />
         </div>
       </div>

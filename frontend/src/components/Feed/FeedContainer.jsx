@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import NewsCard from "../../components/NewsCard/NewsCard";
+
+import PostCard from "../../components/Postcard/PostCard";
 
 import { backend_url } from "../../config/config";
 import { authContext } from "../../Context/AuthContext";
 
-const NewsFeed = () => {
+const FeedContainer = () => {
   const { state } = useContext(authContext);
+
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
     try {
-      const postsURL = `${backend_url}/v1/tweet/getNews`;
+      const postsURL = `${backend_url}/v1/tweet/getTweets`;
       const response = await fetch(postsURL, {
         method: "GET",
         headers: {
@@ -26,7 +28,7 @@ const NewsFeed = () => {
       const data = await response.json();
       // Fetch user information for each post
       const postsWithUserInfo = await Promise.all(
-        data.news.map(async (post) => {
+        data.tweets.map(async (post) => {
           const userResponse = await fetch(
             `${backend_url}/v1/user/userUID/${post.userId}`,
             {
@@ -45,7 +47,6 @@ const NewsFeed = () => {
         })
       );
       setPosts(postsWithUserInfo);
-      console.log(postsWithUserInfo);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -54,16 +55,20 @@ const NewsFeed = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
-
   return (
     <div className="w-full overflow-y-scroll pb-[220px] sm:pb-[20px] feedScroll">
-      {/* ====================== */}
-      {posts.map((post) => (
-        <NewsCard key={post._id} post={post} />
-      ))}
-      {/* ====================== */}
+      {posts.reverse().map((post, index) => {
+        return (
+          <PostCard
+            key={index}
+            postIndex={index + 1}
+            postData={post}
+            userData={post.user.data}
+          />
+        );
+      })}
     </div>
   );
 };
 
-export default NewsFeed;
+export default FeedContainer;
