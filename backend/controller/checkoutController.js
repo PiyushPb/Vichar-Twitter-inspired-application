@@ -44,7 +44,7 @@ export const createCheckoutSession = async (req, res) => {
       success_url: `${process.env.CLIENT_SITE_URL}/success`,
       cancel_url: `${process.env.CLIENT_SITE_URL}/cancel`,
       customer_email: user.email,
-      client_reference_id: userID || "dohaioiagfiuygaifhaoihy",
+      // client_reference_id: userID || "dohaioiagfiuygaifhaoihy",
       line_items: [
         {
           price_data: {
