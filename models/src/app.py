@@ -3,6 +3,9 @@ import flask_cors
 from textblob import TextBlob
 from newspaper import Article
 
+import nltk
+nltk.download('punkt')
+
 app = flask.Flask(__name__)
 flask_cors.CORS(app)
 
@@ -53,3 +56,8 @@ def ping():
 
 if __name__ == "__main__":
     app.run(port=5000, host="0.0.0.0")
+
+
+
+
+    
